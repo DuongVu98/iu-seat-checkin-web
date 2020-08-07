@@ -1,0 +1,15 @@
+import axios from "axios";
+
+const backendServer = "http://localhost:3000";
+
+const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+};
+
+export default {
+    getAllSeat() {
+        return axios.get(`${backendServer}/viewer/all-seats`, headers);
+    },
+};
