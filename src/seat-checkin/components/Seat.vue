@@ -1,5 +1,5 @@
 <template>
-    <div class="seat-box">
+    <div class="seat-box" @click="cardModal({ delegateCode })">
         <t-card :class="[occupied ? 'occupied-seat' : 'empty-seat']">
             <!-- <t-card variant="danger"> -->
             <div class="flex justify-between inside-seat">
@@ -10,10 +10,21 @@
 </template>
 
 <script>
+import SeatCodeInput from "./SeatCodeInput";
+
+import seatService from "../services/seat.service";
+
 export default {
     name: "Seat",
     props: {
         delegateCode: String,
+        row: Number,
+        column: Number,
+    },
+    data() {
+        return {
+            isComponentModalActive: false,
+        };
     },
     computed: {
         occupied: function() {
@@ -22,6 +33,45 @@ export default {
             } else {
                 return false;
             }
+        },
+        position: function() {
+            return {
+                row: this.row,
+                column: this.column,
+            };
+        },
+    },
+    methods: {
+        cardModal: function(props) {
+            this.$buefy.modal.open({
+                parent: this,
+                component: SeatCodeInput,
+                hasModalCard: true,
+                customClass: "custom-class custom-class-2",
+                trapFocus: true,
+                props: props,
+                events: {
+                    "input-code": code => {
+                        this.addSeat(
+                            this.getThis().position.row,
+                            this.getThis().position.column,
+                            code
+                        );
+                    },
+                },
+            });
+        },
+        addSeat(row, column, delegateCode) {
+            console.log(`check row from component --> ${row}`);
+            seatService.addOccupiedSeat({
+                delegateCode: delegateCode,
+                row: row,
+                column: column,
+            });
+            // .then();
+        },
+        getThis() {
+            return this;
         },
     },
 };

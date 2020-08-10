@@ -12,6 +12,7 @@
                             :value="delegateCode"
                             placeholder="code..."
                             required
+                            @keyup.native="setDelegateCode"
                         >
                         </b-input>
                     </b-field>
@@ -27,7 +28,7 @@
                     <button
                         class="button is-primary"
                         type="button"
-                        @click="$parent.close()"
+                        @click="$emit('input-code', delegateCode); $parent.close()"
                     >
                         OK
                     </button>
@@ -45,6 +46,12 @@ export default {
     name: "SeatCodeInput",
     props: {
         delegateCode: String,
+    },
+    methods: {
+        setDelegateCode(event) {
+            console.log(`Keyup --> ${event.target.value}`);
+            this.delegateCode = event.target.value;
+        },
     },
 };
 </script>

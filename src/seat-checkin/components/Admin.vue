@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="seat-block">
-            <div
-                v-for="seat in seats"
-                :key="seat.id"
-                @click="openInputModal({ delegateCode: seat.delegateCode })"
-            >
-                <Seat v-bind:delegateCode="seat.delegateCode" />
+            <div v-for="seat in seats" :key="seat.id">
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :row="seat.row"
+                    :column="seat.column"
+                />
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
 
 <script>
 import Seat from "./Seat.vue";
-import SeatCodeInput from "./SeatCodeInput";
+// import SeatCodeInput from "./SeatCodeInput";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
@@ -45,22 +45,17 @@ export default {
                 this.seats = seatsView;
             });
     },
-    created() {
-        seatPositionService.seatViewToData(36).then(result => {
-            console.log(result);
-        });
-    },
     methods: {
-        openInputModal(props) {
-            this.$buefy.modal.open({
-                parent: this,
-                component: SeatCodeInput,
-                hasModalCard: true,
-                customClass: "custom-class custom-class-2",
-                trapFocus: true,
-                props: props,
-            });
-        },
+        // openInputModal(props) {
+        //     this.$buefy.modal.open({
+        //         parent: this,
+        //         component: SeatCodeInput,
+        //         hasModalCard: true,
+        //         customClass: "custom-class custom-class-2",
+        //         trapFocus: true,
+        //         props: props,
+        //     });
+        // },
     },
 };
 </script>

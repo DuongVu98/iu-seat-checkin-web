@@ -12,4 +12,8 @@ export default {
     getAllSeat() {
         return axios.get(`${backendServer}/viewer/all-seats`, headers);
     },
+    addOccupiedSeat(seat) {
+        console.log(`check row from service --> ${seat.row}`);
+        // return axios.post(`${backendServer}/admin/add-seat`, seat);
+    },
 };
