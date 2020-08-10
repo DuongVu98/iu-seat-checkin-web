@@ -24,7 +24,16 @@
                     >
                         Close
                     </button>
-                    <button class="button is-primary">OK</button>
+                    <button
+                        class="button is-primary"
+                        type="button"
+                        @click="$parent.close()"
+                    >
+                        OK
+                    </button>
+                    <button class="button is-danger" type="button">
+                        Empty
+                    </button>
                 </footer>
             </div>
         </form>

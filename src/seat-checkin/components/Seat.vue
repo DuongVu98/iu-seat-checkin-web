@@ -1,6 +1,7 @@
 <template>
     <div class="seat-box">
         <t-card :class="[occupied ? 'occupied-seat' : 'empty-seat']">
+            <!-- <t-card variant="danger"> -->
             <div class="flex justify-between inside-seat">
                 {{ delegateCode }}
             </div>

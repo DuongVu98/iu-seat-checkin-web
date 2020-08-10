@@ -12,6 +12,7 @@
 import Seat from "./Seat.vue";
 
 import seatService from "../services/seat.service";
+import seatPositionService from "../services/seat-position.service";
 
 export default {
     name: "Viewer",
@@ -24,7 +25,7 @@ export default {
             seatList: [],
         };
     },
-    async created() {
+    async mounted() {
         for (let i = 0; i < 77 * 2; i++) {
             await this.seats.push({ id: `${i}`, delegateCode: "" });
         }
@@ -32,11 +33,11 @@ export default {
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-
-        for (let i = 0; i < this.seatList.length; i++) {
-            this.seats[i].id = this.seatList[i].id;
-            this.seats[i].delegateCode = this.seatList[i].delegateCode;
-        }
+        seatPositionService
+            .dataToSeatView(this.seatList, this.seats)
+            .then(seatsView => {
+                this.seats = seatsView;
+            });
     },
 };
 </script>

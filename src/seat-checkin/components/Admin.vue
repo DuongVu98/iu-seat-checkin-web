@@ -17,6 +17,7 @@ import Seat from "./Seat.vue";
 import SeatCodeInput from "./SeatCodeInput";
 
 import seatService from "../services/seat.service";
+import seatPositionService from "../services/seat-position.service";
 
 export default {
     name: "Admin",
@@ -38,11 +39,16 @@ export default {
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-
-        for (let i = 0; i < this.seatList.length; i++) {
-            this.seats[i].id = this.seatList[i].id;
-            this.seats[i].delegateCode = this.seatList[i].delegateCode;
-        }
+        seatPositionService
+            .dataToSeatView(this.seatList, this.seats)
+            .then(seatsView => {
+                this.seats = seatsView;
+            });
+    },
+    created() {
+        seatPositionService.seatViewToData(36).then(result => {
+            console.log(result);
+        });
     },
     methods: {
         openInputModal(props) {
