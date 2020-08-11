@@ -1,11 +1,21 @@
 <template>
-    <div class="seat-box" @click="cardModal({ delegateCode })">
+    <div class="seat-box" @click="isComponentModalActive = true">
         <t-card :class="[occupied ? 'occupied-seat' : 'empty-seat']">
             <!-- <t-card variant="danger"> -->
             <div class="flex justify-between inside-seat">
                 {{ delegateCode }}
             </div>
         </t-card>
+        <CModal
+            title="Modal title"
+            color="warning"
+            :show.sync="isComponentModalActive"
+        >
+            <SeatCodeInput
+                :delegateCode="delegateCode"
+                @input-code="addSeat(code)"
+            ></SeatCodeInput>
+        </CModal>
     </div>
 </template>
 
@@ -16,6 +26,9 @@ import seatService from "../services/seat.service";
 
 export default {
     name: "Seat",
+    components: {
+        SeatCodeInput,
+    },
     props: {
         delegateCode: String,
         row: Number,
@@ -42,31 +55,31 @@ export default {
         },
     },
     methods: {
-        cardModal: function(props) {
-            this.$buefy.modal.open({
-                parent: this,
-                component: SeatCodeInput,
-                hasModalCard: true,
-                customClass: "custom-class custom-class-2",
-                trapFocus: true,
-                props: props,
-                events: {
-                    "input-code": code => {
-                        this.addSeat(
-                            this.getThis().position.row,
-                            this.getThis().position.column,
-                            code
-                        );
-                    },
-                },
-            });
-        },
-        addSeat(row, column, delegateCode) {
-            console.log(`check row from component --> ${row}`);
+        // cardModal: function(props) {
+        //     this.$buefy.modal.open({
+        //         parent: this,
+        //         component: SeatCodeInput,
+        //         hasModalCard: true,
+        //         customClass: "custom-class custom-class-2",
+        //         trapFocus: true,
+        //         props: props,
+        //         events: {
+        //             "input-code": code => {
+        //                 this.addSeat(
+        //                     this.getThis().position.row,
+        //                     this.getThis().position.column,
+        //                     code
+        //                 );
+        //             },
+        //         },
+        //     });
+        // },
+        addSeat(delegateCode) {
+            console.log(`check row from component --> ${this.row}`);
             seatService.addOccupiedSeat({
                 delegateCode: delegateCode,
-                row: row,
-                column: column,
+                row: this.row,
+                column: this.column,
             });
             // .then();
         },

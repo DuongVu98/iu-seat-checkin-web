@@ -4,8 +4,10 @@ import router from "./router";
 import store from "./store";
 
 import "./assets/styles/main.css";
+import "./assets/styles/main.scss";
 import "./plugins/vue-tailwind";
 import "./plugins/buefy";
+import "./plugins/coreui";
 
 Vue.config.productionTip = false;
 
