@@ -1,11 +1,12 @@
 <template>
     <div>
         <div class="seat-block">
-            <div v-for="seat in seats" :key="seat.id">
+            <div v-for="(seat, index) in seats" :key="seat.id">
                 <Seat
                     v-bind:delegateCode="seat.delegateCode"
-                    :row="seat.row"
+                    :index="index"
                     :column="seat.column"
+                    :row="seat.row"
                 />
             </div>
         </div>
@@ -29,6 +30,7 @@ export default {
             seats: [],
             seatList: [],
             isComponentModalActive: false,
+            dialog: false,
         };
     },
     async mounted() {
@@ -45,18 +47,7 @@ export default {
                 this.seats = seatsView;
             });
     },
-    methods: {
-        // openInputModal(props) {
-        //     this.$buefy.modal.open({
-        //         parent: this,
-        //         component: SeatCodeInput,
-        //         hasModalCard: true,
-        //         customClass: "custom-class custom-class-2",
-        //         trapFocus: true,
-        //         props: props,
-        //     });
-        // },
-    },
+    methods: {},
 };
 </script>
 

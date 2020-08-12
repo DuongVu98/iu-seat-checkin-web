@@ -1,105 +1,52 @@
 <template>
-    <div id="app">
-        <div class="q-pa-md q-gutter-sm">
-            <q-btn label="Alert" color="primary" @click="alert = true" />
-            <q-btn label="Confirm" color="primary" @click="confirm = true" />
-            <q-btn label="Prompt" color="primary" @click="prompt = true" />
+    <v-app>
+        <v-app-bar app color="primary" dark>
+            <div class="d-flex align-center">
+                <v-img
+                    alt="Vuetify Logo"
+                    class="shrink mr-2"
+                    contain
+                    src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+                    transition="scale-transition"
+                    width="40"
+                />
 
-            <q-dialog v-model="alert">
-                <q-card>
-                    <q-card-section>
-                        <div class="text-h6">Alert</div>
-                    </q-card-section>
+                <v-img
+                    alt="Vuetify Name"
+                    class="shrink mt-1 hidden-sm-and-down"
+                    contain
+                    min-width="100"
+                    src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+                    width="100"
+                />
+            </div>
 
-                    <q-card-section class="q-pt-none">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Rerum repellendus sit voluptate voluptas eveniet porro.
-                        Rerum blanditiis perferendis totam, ea at omnis vel
-                        numquam exercitationem aut, natus minima, porro labore.
-                    </q-card-section>
+            <v-spacer></v-spacer>
 
-                    <q-card-actions align="right">
-                        <q-btn flat label="OK" color="primary" v-close-popup />
-                    </q-card-actions>
-                </q-card>
-            </q-dialog>
+            <v-btn
+                href="https://github.com/vuetifyjs/vuetify/releases/latest"
+                target="_blank"
+                text
+            >
+                <span class="mr-2">Latest Release</span>
+                <v-icon>mdi-open-in-new</v-icon>
+            </v-btn>
+        </v-app-bar>
 
-            <q-dialog v-model="confirm" persistent>
-                <q-card>
-                    <q-card-section class="row items-center">
-                        <q-avatar
-                            icon="signal_wifi_off"
-                            color="primary"
-                            text-color="white"
-                        />
-                        <span class="q-ml-sm"
-                            >You are currently not connected to any
-                            network.</span
-                        >
-                    </q-card-section>
-
-                    <q-card-actions align="right">
-                        <q-btn
-                            flat
-                            label="Cancel"
-                            color="primary"
-                            v-close-popup
-                        />
-                        <q-btn
-                            flat
-                            label="Turn on Wifi"
-                            color="primary"
-                            v-close-popup
-                        />
-                    </q-card-actions>
-                </q-card>
-            </q-dialog>
-
-            <q-dialog v-model="prompt" persistent>
-                <q-card style="min-width: 350px">
-                    <q-card-section>
-                        <div class="text-h6">Your address</div>
-                    </q-card-section>
-
-                    <q-card-section class="q-pt-none">
-                        <q-input
-                            dense
-                            v-model="address"
-                            autofocus
-                            @keyup.enter="prompt = false"
-                        />
-                    </q-card-section>
-
-                    <q-card-actions align="right" class="text-primary">
-                        <q-btn flat label="Cancel" v-close-popup />
-                        <q-btn flat label="Add address" v-close-popup />
-                    </q-card-actions>
-                </q-card>
-            </q-dialog>
-        </div>
-        <!-- <router-view /> -->
-    </div>
+        <v-main>
+            <router-view />
+        </v-main>
+    </v-app>
 </template>
-<script>
-import { QBtn, QDialog, ClosePopup } from "quasar";
-export default {
-    components: {
-        QDialog,
-        QBtn,
-    },
-    directives: {
-        ClosePopup,
-    },
-    data() {
-        return {
-            warningModal: false,
-            alert: false,
-            confirm: false,
-            prompt: false,
 
-            address: "",
-        };
-    },
+<script>
+export default {
+    name: "App",
+
+    components: {},
+
+    data: () => ({
+        //
+    }),
 };
 </script>
-<style></style>

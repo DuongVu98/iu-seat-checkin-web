@@ -1,21 +1,31 @@
 <template>
     <div class="seat-box" @click="isComponentModalActive = true">
-        <t-card :class="[occupied ? 'occupied-seat' : 'empty-seat']">
-            <!-- <t-card variant="danger"> -->
-            <div class="flex justify-between inside-seat">
-                {{ delegateCode }}
-            </div>
-        </t-card>
-        <CModal
-            title="Modal title"
-            color="warning"
-            :show.sync="isComponentModalActive"
-        >
-            <SeatCodeInput
-                :delegateCode="delegateCode"
-                @input-code="addSeat(code)"
-            ></SeatCodeInput>
-        </CModal>
+        <v-dialog v-model="isComponentModalActive" width="500">
+            <v-card-title class="headline grey lighten-2">
+                Seat occupied
+            </v-card-title>
+            <template v-slot:activator="{ on, attrs }">
+                <t-card
+                    :class="[occupied ? 'occupied-seat' : 'empty-seat']"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    <div class="flex justify-between inside-seat">
+                        {{ delegateCode }}
+                    </div>
+                </t-card>
+            </template>
+
+            <v-card>
+                <v-card-text>
+                    <SeatCodeInput
+                        :delegateCode="delegateCode"
+                        @close-modal="isComponentModalActive = false"
+                        @input-code="addSeat"
+                    ></SeatCodeInput>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -23,6 +33,7 @@
 import SeatCodeInput from "./SeatCodeInput";
 
 import seatService from "../services/seat.service";
+import seatPositionService from "../services/seat-position.service";
 
 export default {
     name: "Seat",
@@ -31,13 +42,22 @@ export default {
     },
     props: {
         delegateCode: String,
+        index: Number,
         row: Number,
         column: Number,
     },
     data() {
         return {
             isComponentModalActive: false,
+            seatRow: 123,
+            seatColumn: 123,
         };
+    },
+    created() {
+        seatPositionService.positionToData(this.$props.index + 1).then(data => {
+            this.seatRow = data.row;
+            this.seatColumn = data.column;
+        });
     },
     computed: {
         occupied: function() {
@@ -49,42 +69,20 @@ export default {
         },
         position: function() {
             return {
-                row: this.row,
-                column: this.column,
+                row: Math.ceil((this.index + 1) / 14),
+                column: (this.index + 1) % 14 == 0 ? 14 : (this.index + 1) % 14,
             };
         },
     },
     methods: {
-        // cardModal: function(props) {
-        //     this.$buefy.modal.open({
-        //         parent: this,
-        //         component: SeatCodeInput,
-        //         hasModalCard: true,
-        //         customClass: "custom-class custom-class-2",
-        //         trapFocus: true,
-        //         props: props,
-        //         events: {
-        //             "input-code": code => {
-        //                 this.addSeat(
-        //                     this.getThis().position.row,
-        //                     this.getThis().position.column,
-        //                     code
-        //                 );
-        //             },
-        //         },
-        //     });
-        // },
         addSeat(delegateCode) {
-            console.log(`check row from component --> ${this.row}`);
-            seatService.addOccupiedSeat({
-                delegateCode: delegateCode,
-                row: this.row,
-                column: this.column,
-            });
-            // .then();
-        },
-        getThis() {
-            return this;
+            seatService
+                .addOccupiedSeat({
+                    delegateCode: delegateCode,
+                    row: this.seatRow,
+                    column: this.seatColumn,
+                })
+                .then();
         },
     },
 };

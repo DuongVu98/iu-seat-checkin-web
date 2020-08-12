@@ -47,13 +47,20 @@ module.exports = {
                 test: /\.(scss)$/,
                 use: [
                     {
-                        loader: "style-loader", // inject CSS to page
+                        loader: "vue-style-loader", // inject CSS to page
                     },
                     {
                         loader: "css-loader", // translates CSS into CommonJS modules
                     },
                     {
                         loader: "sass-loader", // compiles Sass to CSS
+                        options: {
+                            implementation: require("sass"),
+                            sassOptions: {
+                                fiber: require("fibers"),
+                                indentedSyntax: true, // optional
+                            },
+                        },
                     },
                     {
                         loader: "postcss-loader", // Run postcss actions

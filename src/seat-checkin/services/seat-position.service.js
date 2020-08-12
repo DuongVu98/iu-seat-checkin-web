@@ -13,6 +13,12 @@ export default {
     async dataToPosition(seatData) {
         return seatData.row * 14 - (14 - seatData.column) - 1;
     },
+    async positionToData(index) {
+        return {
+            row: Math.ceil(index / 14),
+            column: index % 14 == 0 ? 14 : index % 14,
+        };
+    },
     async seatViewToData(seatViewPosition) {
         let column = seatViewPosition % 14;
         let row = Math.ceil(seatViewPosition / 14);
