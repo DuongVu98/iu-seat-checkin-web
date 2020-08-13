@@ -30,7 +30,7 @@
                         type="button"
                         @click="deleteData()"
                     >
-                        Empty
+                        {{ occupiedState }}
                     </button>
                 </footer>
             </div>
@@ -60,8 +60,11 @@ export default {
             this.$props.delegateCode = event.target.value;
         },
         enterCode() {
-            console.log(this.occupiedState);
-            this.$emit("input-code", this.inputCode);
+            if (this.occupiedState == true) {
+                this.$emit("update-code", this.inputCode);
+            } else {
+                this.$emit("input-code", this.inputCode);
+            }
             this.$emit("close-modal");
         },
         closeModal() {

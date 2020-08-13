@@ -22,6 +22,7 @@
                         :delegateCode="delegateCode"
                         @close-modal="isComponentModalActive = false"
                         @input-code="addSeat"
+                        @update-code="updateSeat"
                     ></SeatCodeInput>
                 </v-card-text>
             </v-card>
@@ -84,6 +85,11 @@ export default {
                     column: this.seatColumn,
                 })
                 .then();
+        },
+        updateSeat(delegateCode) {
+            console.log(
+                `update code: ${delegateCode} for id: ${this.$props.seatId}`
+            );
         },
     },
 };
