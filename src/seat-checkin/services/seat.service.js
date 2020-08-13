@@ -16,4 +16,7 @@ export default {
         // console.log(`check row from service --> ${seat.row}`);
         return axios.post(`${backendServer}/admin/add-seat`, seat);
     },
+    updateSeatCode(seatData) {
+        return axios.post(`${backendServer}/admin/update-seat`, seatData);
+    },
 };

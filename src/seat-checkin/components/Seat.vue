@@ -84,12 +84,20 @@ export default {
                     row: this.seatRow,
                     column: this.seatColumn,
                 })
-                .then();
+                .then(() => this.reloadEvent());
         },
         updateSeat(delegateCode) {
-            console.log(
-                `update code: ${delegateCode} for id: ${this.$props.seatId}`
-            );
+            seatService
+                .updateSeatCode({
+                    id: this.$props.seatId,
+                    row: this.seatRow,
+                    column: this.seatColumn,
+                    delegateCode: delegateCode,
+                })
+                .then(() => this.reloadEvent());
+        },
+        reloadEvent() {
+            this.$emit("reload");
         },
     },
 };

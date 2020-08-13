@@ -6,6 +6,7 @@
                     v-bind:delegateCode="seat.delegateCode"
                     :seatId="seat.id"
                     :index="index"
+                    @reload="fetchData()"
                 />
             </div>
         </div>
@@ -45,7 +46,23 @@ export default {
                 this.seats = seatsView;
             });
     },
-    methods: {},
+    methods: {
+        async fetchData() {
+            this.seats = await [];
+            for (let i = 0; i < 77 * 2; i++) {
+                await this.seats.push({ id: `${i}`, delegateCode: "" });
+            }
+
+            await seatService.getAllSeat().then(seatsList => {
+                this.seatList = seatsList.data;
+            });
+            await seatPositionService
+                .dataToSeatView(this.seatList, this.seats)
+                .then(seatsView => {
+                    this.seats = seatsView;
+                });
+        },
+    },
 };
 </script>
 

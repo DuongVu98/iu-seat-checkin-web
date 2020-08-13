@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         setDelegateCode(event) {
-            console.log(`Keyup --> ${event.target.value}`);
             this.inputCode = event.target.value;
             this.$props.delegateCode = event.target.value;
         },
