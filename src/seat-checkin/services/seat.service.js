@@ -19,4 +19,7 @@ export default {
     updateSeatCode(seatData) {
         return axios.post(`${backendServer}/admin/update-seat`, seatData);
     },
+    deleteSeatCode(seatId) {
+        return axios.get(`${backendServer}/admin/delete-seat/${seatId}`);
+    },
 };

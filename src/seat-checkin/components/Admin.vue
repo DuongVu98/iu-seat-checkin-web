@@ -6,6 +6,7 @@
                     v-bind:delegateCode="seat.delegateCode"
                     :seatId="seat.id"
                     :index="index"
+                    :adminPermission="true"
                     @reload="fetchData()"
                 />
             </div>

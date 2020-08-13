@@ -2,7 +2,10 @@
     <div>
         <div class="seat-block">
             <div v-for="seat in seats" :key="seat.id">
-                <Seat v-bind:delegateCode="seat.delegateCode" />
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :adminPermission="false"
+                />
             </div>
         </div>
     </div>

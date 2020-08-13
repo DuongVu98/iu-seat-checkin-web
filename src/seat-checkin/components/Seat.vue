@@ -1,8 +1,8 @@
 <template>
-    <div class="seat-box" @click="isComponentModalActive = true">
+    <div class="seat-box" @click="openModal()">
         <v-dialog v-model="isComponentModalActive" width="500">
             <v-card-title class="headline grey lighten-2">
-                Seat occupied
+                {{ modalLabel }}
             </v-card-title>
             <template v-slot:activator="{ on, attrs }">
                 <t-card
@@ -23,6 +23,7 @@
                         @close-modal="isComponentModalActive = false"
                         @input-code="addSeat"
                         @update-code="updateSeat"
+                        @delete="deleteCode()"
                     ></SeatCodeInput>
                 </v-card-text>
             </v-card>
@@ -45,6 +46,7 @@ export default {
         delegateCode: String,
         index: Number,
         seatId: String,
+        adminPermission: Boolean,
     },
     data() {
         return {
@@ -75,8 +77,18 @@ export default {
                 column: (this.index + 1) % 14 == 0 ? 14 : (this.index + 1) % 14,
             };
         },
+        modalLabel: function() {
+            return this.delegateCode == ""
+                ? "Add occupied seat"
+                : "Edit occupied seat";
+        },
     },
     methods: {
+        openModal() {
+            if (this.$props.adminPermission) {
+                this.isComponentModalActive = true;
+            }
+        },
         addSeat(delegateCode) {
             seatService
                 .addOccupiedSeat({
@@ -94,6 +106,11 @@ export default {
                     column: this.seatColumn,
                     delegateCode: delegateCode,
                 })
+                .then(() => this.reloadEvent());
+        },
+        deleteCode() {
+            seatService
+                .deleteSeatCode(this.$props.seatId)
                 .then(() => this.reloadEvent());
         },
         reloadEvent() {

@@ -26,6 +26,7 @@
                         OK
                     </button>
                     <button
+                        v-if="occupiedState"
                         class="button is-danger"
                         type="button"
                         @click="deleteData()"
