@@ -2,12 +2,7 @@
     <div>
         <div class="seat-block">
             <div v-for="(seat, index) in seats" :key="seat.id">
-                <Seat
-                    v-bind:delegateCode="seat.delegateCode"
-                    :index="index"
-                    :column="seat.column"
-                    :row="seat.row"
-                />
+                <Seat v-bind:delegateCode="seat.delegateCode" :index="index" />
             </div>
         </div>
     </div>
@@ -15,7 +10,6 @@
 
 <script>
 import Seat from "./Seat.vue";
-// import SeatCodeInput from "./SeatCodeInput";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";

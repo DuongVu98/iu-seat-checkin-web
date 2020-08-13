@@ -5,8 +5,6 @@ export default {
                 (await seatData.row) * 14 - (14 - seatData.column) - 1;
             seatsView[position].id = seatData.id;
             seatsView[position].delegateCode = seatData.delegateCode;
-            seatsView[position].row = seatData.row;
-            seatsView[position].column = seatData.column;
             seatsView[position].index = position;
         });
 

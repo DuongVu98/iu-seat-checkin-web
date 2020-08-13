@@ -43,8 +43,6 @@ export default {
     props: {
         delegateCode: String,
         index: Number,
-        row: Number,
-        column: Number,
     },
     data() {
         return {
