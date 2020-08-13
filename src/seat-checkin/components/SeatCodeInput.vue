@@ -30,7 +30,7 @@
                         type="button"
                         @click="deleteData()"
                     >
-                        {{ occupiedState }}
+                        Delete
                     </button>
                 </footer>
             </div>
@@ -56,7 +56,6 @@ export default {
     methods: {
         setDelegateCode(event) {
             this.inputCode = event.target.value;
-            this.$props.delegateCode = event.target.value;
         },
         enterCode() {
             if (this.occupiedState == true) {
