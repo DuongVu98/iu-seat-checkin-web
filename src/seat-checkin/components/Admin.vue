@@ -33,7 +33,7 @@ export default {
             dialog: false,
         };
     },
-    async mounted() {
+    async created() {
         for (let i = 0; i < 77 * 2; i++) {
             await this.seats.push({ id: `${i}`, delegateCode: "" });
         }
@@ -41,7 +41,7 @@ export default {
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-        seatPositionService
+        await seatPositionService
             .dataToSeatView(this.seatList, this.seats)
             .then(seatsView => {
                 this.seats = seatsView;

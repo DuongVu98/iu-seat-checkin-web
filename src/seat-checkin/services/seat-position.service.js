@@ -1,11 +1,13 @@
 export default {
     async dataToSeatView(seatsData, seatsView) {
-        await seatsData.forEach(seatData => {
-            let position = seatData.row * 14 - (14 - seatData.column) - 1;
+        await seatsData.forEach(async seatData => {
+            let position =
+                (await seatData.row) * 14 - (14 - seatData.column) - 1;
             seatsView[position].id = seatData.id;
             seatsView[position].delegateCode = seatData.delegateCode;
             seatsView[position].row = seatData.row;
             seatsView[position].column = seatData.column;
+            seatsView[position].index = position;
         });
 
         return seatsView;

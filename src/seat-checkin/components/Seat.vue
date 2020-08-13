@@ -53,11 +53,13 @@ export default {
             seatColumn: 123,
         };
     },
-    created() {
-        seatPositionService.positionToData(this.$props.index + 1).then(data => {
-            this.seatRow = data.row;
-            this.seatColumn = data.column;
-        });
+    async created() {
+        await seatPositionService
+            .positionToData(this.$props.index + 1)
+            .then(data => {
+                this.seatRow = data.row;
+                this.seatColumn = data.column;
+            });
     },
     computed: {
         occupied: function() {
