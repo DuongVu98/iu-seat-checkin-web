@@ -47,7 +47,11 @@ export default {
     data() {
         return {
             inputCode: null,
+            occupiedState: false,
         };
+    },
+    created() {
+        this.occupiedState = this.$props.delegateCode == "" ? false : true;
     },
     methods: {
         setDelegateCode(event) {
@@ -56,6 +60,7 @@ export default {
             this.$props.delegateCode = event.target.value;
         },
         enterCode() {
+            console.log(this.occupiedState);
             this.$emit("input-code", this.inputCode);
             this.$emit("close-modal");
         },

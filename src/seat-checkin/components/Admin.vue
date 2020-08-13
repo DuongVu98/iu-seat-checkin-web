@@ -2,7 +2,11 @@
     <div>
         <div class="seat-block">
             <div v-for="(seat, index) in seats" :key="seat.id">
-                <Seat v-bind:delegateCode="seat.delegateCode" :index="index" />
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :seatId="seat.id"
+                    :index="index"
+                />
             </div>
         </div>
     </div>

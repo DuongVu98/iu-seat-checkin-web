@@ -43,6 +43,7 @@ export default {
     props: {
         delegateCode: String,
         index: Number,
+        seatId: String,
     },
     data() {
         return {
