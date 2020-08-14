@@ -1,44 +1,29 @@
 <template>
     <div>
-        <b-button type="is-success" rounded @click="codeEditor = true"
-            >Code editor</b-button
-        >
-        <v-dialog v-model="codeEditor" width="500">
-            <v-card-title class="headline grey lighten-2">
-                {{ modalLabel }}
-            </v-card-title>
-            <template v-slot:activator="{ on, attrs }">
-                <div class="seat-block" v-bind="attrs" v-on="on">
-                    <div v-for="(seat, index) in seats" :key="seat.id">
-                        <Seat
-                            v-bind:delegateCode="seat.delegateCode"
-                            :seatId="seat.id"
-                            :index="index"
-                            :adminPermission="true"
-                            @reload="fetchData()"
-                        />
-                    </div>
-                </div>
-            </template>
-            <v-card>
-                <SeatCodeEditor></SeatCodeEditor>
-            </v-card>
-        </v-dialog>
+        <div class="seat-block">
+            <div v-for="(seat, index) in seats" :key="seat.id">
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :seatId="seat.id"
+                    :index="index"
+                    :adminPermission="true"
+                    @reload="fetchData()"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Seat from "./Seat.vue";
-import SeatCodeEditor from "./SeatCodeEditor";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
 
 export default {
-    name: "Admin",
+    name: "SeatCodeEditor",
     components: {
         Seat,
-        SeatCodeEditor,
     },
     data() {
         return {
@@ -46,7 +31,6 @@ export default {
             seatList: [],
             isComponentModalActive: false,
             dialog: false,
-            codeEditor: false,
         };
     },
     async created() {
