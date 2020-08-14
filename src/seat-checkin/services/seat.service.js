@@ -22,4 +22,7 @@ export default {
     deleteSeatCode(seatId) {
         return axios.get(`${backendServer}/admin/delete-seat/${seatId}`);
     },
+    updateSeatOccupied(updateData) {
+        return axios.post(`${backendServer}/admin/set-occupied`, updateData);
+    },
 };

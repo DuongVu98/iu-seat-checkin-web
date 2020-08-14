@@ -6,6 +6,7 @@ export default {
             seatsView[position].id = seatData.id;
             seatsView[position].delegateCode = seatData.delegateCode;
             seatsView[position].index = position;
+            seatsView[position].occupied = seatData.occupied;
         });
 
         return seatsView;

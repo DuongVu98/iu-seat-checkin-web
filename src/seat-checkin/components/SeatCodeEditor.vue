@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="seat-block">
+        <div class="editor-seat-block">
             <div v-for="(seat, index) in seats" :key="seat.id">
-                <Seat
+                <EditableSeat
                     v-bind:delegateCode="seat.delegateCode"
                     :seatId="seat.id"
                     :index="index"
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Seat from "./Seat.vue";
+import EditableSeat from "./EditableSeat.vue";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
@@ -23,7 +23,7 @@ import seatPositionService from "../services/seat-position.service";
 export default {
     name: "SeatCodeEditor",
     components: {
-        Seat,
+        EditableSeat,
     },
     data() {
         return {
@@ -68,10 +68,10 @@ export default {
 </script>
 
 <style>
-.seat-block {
-    margin-top: 300px;
-    margin-left: 200px;
-    margin-right: 200px;
+.editor-seat-block {
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
