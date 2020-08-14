@@ -57,7 +57,7 @@ export default {
             this.$emit("reload");
         },
         async setOccupied() {
-            if (this.delegateCode != "") {
+            if (this.delegateCode != "" && this.adminPermission) {
                 this.seatOccupied = await !this.seatOccupied;
                 seatApiService.updateSeatOccupied({
                     id: this.seatId,

@@ -32,7 +32,9 @@
                 <v-icon>mdi-open-in-new</v-icon>
             </v-btn>
         </v-app-bar>
-
+        <div class="logo-image">
+            <img src="@/assets/images/vnsiu_logo.png" width="150px" alt="">
+        </div>
         <v-main>
             <router-view />
         </v-main>
@@ -50,3 +52,11 @@ export default {
     }),
 };
 </script>
+
+<style>
+.logo-image {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+}
+</style>

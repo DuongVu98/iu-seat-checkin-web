@@ -4,6 +4,7 @@
             <div v-for="seat in seats" :key="seat.id">
                 <Seat
                     v-bind:delegateCode="seat.delegateCode"
+                    :occupied="seat.occupied"
                     :adminPermission="false"
                 />
             </div>
@@ -47,7 +48,6 @@ export default {
 
 <style>
 .seat-block {
-    margin-top: 300px;
     margin-left: 200px;
     margin-right: 200px;
     display: grid;

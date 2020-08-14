@@ -124,9 +124,15 @@ export default {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
 }
+.editor-seat:hover {
+    background-color: tomato;
+    color: white;
+}
 .editor-seat {
     width: 50px;
     height: 40px;
     margin-top: 10px;
+    transition: color 0.2s, background-color 0.2s;
+    transition-timing-function: ease-out;
 }
 </style>

@@ -1,24 +1,39 @@
 <template>
     <div>
-        <b-button type="is-success" rounded @click="codeEditor = true"
-            >Code editor</b-button
-        >
-        <div class="seat-block">
-            <div v-for="(seat, index) in seats" :key="seat.id">
-                <Seat
-                    v-bind:delegateCode="seat.delegateCode"
-                    :seatId="seat.id"
-                    :index="index"
-                    :occupied="seat.occupied"
-                    :adminPermission="true"
-                    @reload="fetchData()"
-                />
+        <div class="admin-editor-block ">
+            <b-button
+                class="edit-seat-button"
+                type="is-success"
+                rounded
+                @click="codeEditor = true"
+                >Code editor</b-button
+            >
+            <div class="admin-seat-block">
+                <div v-for="(seat, index) in seats" :key="seat.id">
+                    <Seat
+                        v-bind:delegateCode="seat.delegateCode"
+                        :seatId="seat.id"
+                        :index="index"
+                        :occupied="seat.occupied"
+                        :adminPermission="true"
+                        @reload="fetchData()"
+                    />
+                </div>
             </div>
         </div>
         <v-dialog v-model="codeEditor" width="1000">
             <div>
                 <v-card>
+                    <v-card-title class="headline grey lighten-2">
+                        Seat code editor
+                    </v-card-title>
                     <SeatCodeEditor />
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <b-button type="is-info" outlined @click="closeEditor()"
+                            >Save</b-button
+                        >
+                    </v-card-actions>
                 </v-card>
             </div>
         </v-dialog>
@@ -77,17 +92,26 @@ export default {
                     this.seats = seatsView;
                 });
         },
+        closeEditor() {
+            this.codeEditor = false;
+            this.fetchData();
+        },
     },
 };
 </script>
 
 <style>
-.seat-block {
-    margin-top: 300px;
+.admin-editor-block {
     margin-left: 200px;
     margin-right: 200px;
+    margin-bottom: 100px;
+}
+.admin-seat-block {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+.edit-seat-button {
+    margin-bottom: 50px;
 }
 .seat-code-editor {
     width: 1000px;
