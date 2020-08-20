@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendServer = "http://localhost:3000";
+const backendServer = "http://192.168.33.10:3000";
 
 const headers = {
     "Access-Control-Allow-Origin": "*",
