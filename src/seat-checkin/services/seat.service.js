@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendServer = "http://192.168.33.10:3000";
+const backendServer = process.env.VUE_APP_SERVER;
 
 const headers = {
     "Access-Control-Allow-Origin": "*",
