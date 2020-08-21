@@ -1,0 +1,28 @@
+2020/08/22 00:29:24 [emerg] 33128#30992: CreateFile() "C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/..\mime.types" failed (2: The system cannot find the file specified) in C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/..\nginx.conf:9
+2020/08/22 00:30:20 [emerg] 33284#27092: CreateFile() "C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/..\mime.types" failed (2: The system cannot find the file specified) in C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/..\nginx.conf:9
+2020/08/22 00:30:42 [emerg] 60772#60052: invalid parameter "server_name" in C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/.\nginx.conf:15
+2020/08/22 00:33:48 [emerg] 35084#33324: invalid parameter "server_name" in C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/.\nginx.conf:16
+2020/08/22 00:35:41 [emerg] 54880#54220: invalid parameter "server_name" in C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/.\nginx.conf:16
+2020/08/22 00:38:55 [error] 45888#33888: *1 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /admin HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:38:55 [error] 45888#33888: *2 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/admin"
+2020/08/22 00:39:00 [error] 45888#33888: *3 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:39:01 [error] 45888#33888: *4 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2020/08/22 00:39:19 [error] 45888#33888: *5 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:39:19 [error] 45888#33888: *6 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2020/08/22 00:40:24 [emerg] 59216#44060: CreateFile() "C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/conf/nginx.conf" failed (3: The system cannot find the path specified)
+2020/08/22 00:40:44 [emerg] 31888#41552: CreateFile() "C:\Workspace\Projects\iu-seat-checking\seat-checking-web\nginx/conf/nginx.conf" failed (3: The system cannot find the path specified)
+2020/08/22 00:40:55 [notice] 39820#38784: signal process started
+2020/08/22 00:44:07 [error] 2592#14468: *1 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:44:07 [error] 2592#14468: *2 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2020/08/22 00:45:31 [notice] 19732#1052: signal process started
+2020/08/22 00:49:55 [error] 54696#22040: *1 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:49:55 [error] 54696#22040: *2 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2020/08/22 00:50:39 [notice] 11380#38848: signal process started
+2020/08/22 00:52:07 [emerg] 48056#5044: CreateFile() ".\nginx\conf/nginx.conf" failed (3: The system cannot find the path specified)
+2020/08/22 00:52:49 [notice] 11232#29712: signal process started
+2020/08/22 00:55:06 [error] 50616#57936: *1 CreateFile() ".\/dist/admin" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /admin HTTP/1.1", host: "localhost:8080"
+2020/08/22 00:55:44 [notice] 31104#30084: signal process started
+2020/08/22 00:56:44 [notice] 48480#62928: signal process started
+2020/08/22 01:00:41 [notice] 8356#43052: signal process started
+2020/08/22 01:01:18 [error] 38320#26612: *1 CreateFile() ".\nginx\html/aasdfsfg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /aasdfsfg HTTP/1.1", host: "localhost:8080"
+2020/08/22 01:01:51 [notice] 1496#58812: signal process started
