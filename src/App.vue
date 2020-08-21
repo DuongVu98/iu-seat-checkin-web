@@ -33,7 +33,7 @@
             </v-btn>
         </v-app-bar>
         <div class="logo-image">
-            <img src="@/assets/images/vnsiu_logo.png" width="150px" alt="">
+            <img src="@/assets/images/vnsiu_logo.png" width="150px" alt="" />
         </div>
         <v-main>
             <router-view />

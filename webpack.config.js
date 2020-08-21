@@ -1,21 +1,29 @@
 const path = require("path");
-// const { join } = require("path");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
-
-const _root = path.resolve(__dirname, "..");
+const _root = path.resolve(__dirname, ".");
 
 const isDev = process.env.NODE_ENV === "development";
 
 function root(args) {
     args = Array.prototype.slice.call(arguments, 0);
 
-    return path.join.apply(path, [_root].concat(args));
+    const newPath = path.join.apply(path, [_root].concat(args));
+    console.log(`New Path --> ${newPath}`);
+    return newPath;
 }
 
 module.exports = {
     mode: "development",
     entry: {
         main: path.resolve(__dirname, "src/main.js"),
+    },
+    output: {
+        library: "myLib",
+        libraryTarget: "umd",
+        filename: "myLib.js",
+        globalObject: "this",
+        path: path.resolve(__dirname, "dist"),
+        publicPath: "/dist/",
     },
     resolve: {
         extensions: [".js", ".vue"],
@@ -41,10 +49,27 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ["vue-style-loader", "css-loader"],
+                use: [
+                    "vue-style-loader",
+                    "css-loader",
+                    {
+                        loader: "postcss-loader", // Run postcss actions
+                        options: {
+                            plugins: [
+                                function() {
+                                    // postcss plugins, can be exported to postcss.config.js
+                                    return require("autoprefixer");
+                                },
+                                function() {
+                                    return require("tailwindcss");
+                                },
+                            ],
+                        },
+                    },
+                ],
             },
             {
-                test: /\.(scss)$/,
+                test: /\.s(c|a)ss$/,
                 use: [
                     {
                         loader: "vue-style-loader", // inject CSS to page
@@ -62,19 +87,16 @@ module.exports = {
                             },
                         },
                     },
+                ],
+            },
+            {
+                test: /\.(png|jpe?g|gif|ico)$/i,
+                use: [
                     {
-                        loader: "postcss-loader", // Run postcss actions
-                        options: {
-                            plugins: [
-                                function() {
-                                    // postcss plugins, can be exported to postcss.config.js
-                                    return require("autoprefixer");
-                                },
-                                function() {
-                                    return require("tailwindcss");
-                                },
-                            ],
-                        },
+                        loader: "url-loader",
+                    },
+                    {
+                        loader: "file-loader",
                     },
                 ],
             },
