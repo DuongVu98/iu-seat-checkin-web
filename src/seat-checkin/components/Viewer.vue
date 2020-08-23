@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="inline-seats-block">
         <div class="left-seat-block">
             <div v-for="seat in seats.leftSeats" :key="seat.id">
                 <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
             </div>
         </div>
-        <div class="left-seat-block">
+        <div class="right-seat-block">
             <div v-for="seat in seats.rightSeats" :key="seat.id">
                 <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
             </div>
@@ -35,12 +35,13 @@ export default {
     },
     async mounted() {
         for (let i = 0; i < 77 * 2; i++) {
-            if ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14 <= 7) {
+            let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
+            if (column <= 7) {
                 await this.seats.leftSeats.push({
                     id: `${i}`,
                     delegateCode: "",
                 });
-            } else {
+            } else if (column > 7) {
                 await this.seats.rightSeats.push({
                     id: `${i}`,
                     delegateCode: "",
@@ -59,15 +60,17 @@ export default {
 </script>
 
 <style>
-.seat-block {
-    margin-left: 200px;
-    margin-right: 200px;
+.inline-seats-block {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto;
 }
 .left-seat-block {
-    margin-left: 200px;
-    margin-right: 200px;
+    margin-right: 100px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+}
+.right-seat-block {
+    margin-left: 100px;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto;
 }
