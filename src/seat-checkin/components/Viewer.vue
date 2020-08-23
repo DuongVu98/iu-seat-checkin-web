@@ -1,12 +1,13 @@
 <template>
     <div>
-        <div class="seat-block">
-            <div v-for="seat in seats" :key="seat.id">
-                <Seat
-                    v-bind:delegateCode="seat.delegateCode"
-                    :occupied="seat.occupied"
-                    :adminPermission="false"
-                />
+        <div class="left-seat-block">
+            <div v-for="seat in seats.leftSeats" :key="seat.id">
+                <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
+            </div>
+        </div>
+        <div class="left-seat-block">
+            <div v-for="seat in seats.rightSeats" :key="seat.id">
+                <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
             </div>
         </div>
     </div>
@@ -25,23 +26,34 @@ export default {
     },
     data() {
         return {
-            seats: [],
+            seats: {
+                rightSeats: [],
+                leftSeats: [],
+            },
             seatList: [],
         };
     },
     async mounted() {
         for (let i = 0; i < 77 * 2; i++) {
-            await this.seats.push({ id: `${i}`, delegateCode: "" });
+            if ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14 <= 7) {
+                await this.seats.leftSeats.push({
+                    id: `${i}`,
+                    delegateCode: "",
+                });
+            } else {
+                await this.seats.rightSeats.push({
+                    id: `${i}`,
+                    delegateCode: "",
+                });
+            }
         }
 
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-        seatPositionService
-            .dataToSeatView(this.seatList, this.seats)
-            .then(seatsView => {
-                this.seats = seatsView;
-            });
+        await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
+            this.seats = seatsView;
+        });
     },
 };
 </script>
@@ -52,5 +64,11 @@ export default {
     margin-right: 200px;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+.left-seat-block {
+    margin-left: 200px;
+    margin-right: 200px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 </style>

@@ -1,11 +1,7 @@
 <template>
     <div>
         <div class="admin-editor-block ">
-            <b-button
-                class="edit-seat-button"
-                type="is-success"
-                rounded
-                @click="codeEditor = true"
+            <b-button class="edit-seat-button" type="is-success" rounded @click="codeEditor = true"
                 >Code editor</b-button
             >
             <div class="admin-seat-block">
@@ -30,9 +26,7 @@
                     <SeatCodeEditor />
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <b-button type="is-info" outlined @click="closeEditor()"
-                            >Save</b-button
-                        >
+                        <b-button type="is-info" outlined @click="closeEditor()">Save</b-button>
                     </v-card-actions>
                 </v-card>
             </div>
@@ -70,11 +64,9 @@ export default {
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-        await seatPositionService
-            .dataToSeatView(this.seatList, this.seats)
-            .then(seatsView => {
-                this.seats = seatsView;
-            });
+        await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+            this.seats = seatsView;
+        });
     },
     methods: {
         async fetchData() {
@@ -86,11 +78,9 @@ export default {
             await seatService.getAllSeat().then(seatsList => {
                 this.seatList = seatsList.data;
             });
-            await seatPositionService
-                .dataToSeatView(this.seatList, this.seats)
-                .then(seatsView => {
-                    this.seats = seatsView;
-                });
+            await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+                this.seats = seatsView;
+            });
         },
         closeEditor() {
             this.codeEditor = false;
