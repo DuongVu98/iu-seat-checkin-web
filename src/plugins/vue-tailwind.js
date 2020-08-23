@@ -19,6 +19,9 @@ const theme = {
             footer: "",
         },
         variants: {
+            appSeat: {
+                wrapper: "rounded shadow",
+            },
             danger: {
                 wrapper: "bg-red-100 text-red-700",
                 header: "border-red-200 text-red-700",
@@ -43,8 +46,7 @@ const theme = {
                 "text-white bg-green-600 hover:bg-green-500 focus:border-green-700 active:bg-green-700 text-sm font-medium border border-transparent px-3 py-2 rounded-md",
             funny:
                 "text-white bg-orange-600 hover:bg-orange-500 focus:border-orange-700 active:bg-orange-700 text-sm font-medium uppercase border-orange-200 px-4 py-2 border-2 rounded-full shadow",
-            link:
-                "underline text-orange-500 px-3 py-2 hover:bg-orange-100 rounded",
+            link: "underline text-orange-500 px-3 py-2 hover:bg-orange-100 rounded",
         },
     },
 };

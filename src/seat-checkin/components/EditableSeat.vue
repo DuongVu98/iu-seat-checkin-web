@@ -1,11 +1,6 @@
 <template>
     <div class="editor-seat-box" @click="openModal()">
-        <t-card
-            variant="danger"
-            class="p-1 editor-seat"
-            v-bind="attrs"
-            v-on="on"
-        >
+        <t-card variant="danger" class="p-1 editor-seat" v-bind="attrs" v-on="on">
             <div class="flex justify-between inside-seat">
                 {{ delegateCode }}
             </div>
@@ -55,12 +50,10 @@ export default {
         };
     },
     async created() {
-        await seatPositionService
-            .positionToData(this.$props.index + 1)
-            .then(data => {
-                this.seatRow = data.row;
-                this.seatColumn = data.column;
-            });
+        await seatPositionService.positionToData(this.$props.index + 1).then(data => {
+            this.seatRow = data.row;
+            this.seatColumn = data.column;
+        });
     },
     computed: {
         occupied: function() {
@@ -77,9 +70,7 @@ export default {
             };
         },
         modalLabel: function() {
-            return this.delegateCode == ""
-                ? "Add occupied seat"
-                : "Edit occupied seat";
+            return this.delegateCode == "" ? "Add occupied seat" : "Edit occupied seat";
         },
     },
     methods: {
@@ -108,9 +99,7 @@ export default {
                 .then(() => this.reloadEvent());
         },
         deleteCode() {
-            seatService
-                .deleteSeatCode(this.$props.seatId)
-                .then(() => this.reloadEvent());
+            seatService.deleteSeatCode(this.$props.seatId).then(() => this.reloadEvent());
         },
         reloadEvent() {
             this.$emit("reload");

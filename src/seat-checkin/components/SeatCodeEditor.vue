@@ -41,11 +41,9 @@ export default {
         await seatService.getAllSeat().then(seatsList => {
             this.seatList = seatsList.data;
         });
-        await seatPositionService
-            .dataToSeatView(this.seatList, this.seats)
-            .then(seatsView => {
-                this.seats = seatsView;
-            });
+        await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+            this.seats = seatsView;
+        });
     },
     methods: {
         async fetchData() {
@@ -57,11 +55,9 @@ export default {
             await seatService.getAllSeat().then(seatsList => {
                 this.seatList = seatsList.data;
             });
-            await seatPositionService
-                .dataToSeatView(this.seatList, this.seats)
-                .then(seatsView => {
-                    this.seats = seatsView;
-                });
+            await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+                this.seats = seatsView;
+            });
         },
     },
 };

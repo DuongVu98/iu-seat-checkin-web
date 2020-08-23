@@ -61,6 +61,8 @@ export default {
 
 <style>
 .inline-seats-block {
+    margin-left: 7%;
+    margin-right: 7%;
     display: grid;
     grid-template-columns: auto auto;
 }

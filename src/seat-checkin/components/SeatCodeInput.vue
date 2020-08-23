@@ -18,19 +18,10 @@
                     <button class="button" type="button" @click="closeModal()">
                         Close
                     </button>
-                    <button
-                        class="button is-primary"
-                        type="button"
-                        @click="enterCode()"
-                    >
+                    <button class="button is-primary" type="button" @click="enterCode()">
                         OK
                     </button>
-                    <button
-                        v-if="occupiedState"
-                        class="button is-danger"
-                        type="button"
-                        @click="deleteData()"
-                    >
+                    <button v-if="occupiedState" class="button is-danger" type="button" @click="deleteData()">
                         Delete
                     </button>
                 </footer>

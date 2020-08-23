@@ -1,6 +1,6 @@
 <template>
     <div class="seat-box" @click="setOccupied()">
-        <t-card :class="[seatOccupied ? 'occupied-seat' : 'empty-seat']">
+        <t-card :class="[seatOccupied ? 'occupied-seat' : 'empty-seat']" variant="appSeat">
             <div class="flex justify-between inside-seat">
                 {{ delegateCode }}
             </div>
@@ -29,12 +29,10 @@ export default {
         };
     },
     async created() {
-        await seatPositionService
-            .positionToData(this.$props.index + 1)
-            .then(data => {
-                this.seatRow = data.row;
-                this.seatColumn = data.column;
-            });
+        await seatPositionService.positionToData(this.$props.index + 1).then(data => {
+            this.seatRow = data.row;
+            this.seatColumn = data.column;
+        });
     },
     computed: {
         position: function() {
@@ -70,11 +68,6 @@ export default {
 </script>
 
 <style>
-.seat-box {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-}
-
 .occupied-seat {
     background-color: blueviolet;
     color: white;
