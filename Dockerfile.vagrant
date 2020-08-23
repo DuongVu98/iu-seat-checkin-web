@@ -10,12 +10,15 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build:vagrant
+ENTRYPOINT [ "npm", "run", "start:prod" ]
+
+# RUN npm run build:vagrant
+
 
 # production stage
-FROM nginx:stable-alpine as production-stage
+# FROM nginx:stable-alpine as production-stage
 
-COPY ./nginx/conf/nginx.conf /etc/nginx/nginx.conf
-EXPOSE 8080
+# COPY ./nginx/conf/nginx.conf /etc/nginx/nginx.conf
+# EXPOSE 8080
 
-ENTRYPOINT ["nginx"]
+# ENTRYPOINT ["nginx", "-g", "daemon off;"]
