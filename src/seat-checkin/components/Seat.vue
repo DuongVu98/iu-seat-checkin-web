@@ -29,7 +29,7 @@ export default {
         };
     },
     async created() {
-        await seatPositionService.positionToData(this.$props.index + 1).then(data => {
+        await seatPositionService.positionToData(this.$props.index).then(data => {
             this.seatRow = data.row;
             this.seatColumn = data.column;
         });
@@ -57,6 +57,11 @@ export default {
         async setOccupied() {
             if (this.delegateCode != "" && this.adminPermission) {
                 this.seatOccupied = await !this.seatOccupied;
+                console.log({
+                    row: this.seatRow,
+                    col: this.seatColumn,
+                    index: this.$props.index,
+                });
                 seatApiService.updateSeatOccupied({
                     id: this.seatId,
                     occupied: this.seatOccupied,

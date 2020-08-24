@@ -4,43 +4,31 @@
             <b-button class="edit-seat-button" type="is-success" rounded @click="codeEditor = true"
                 >Code editor</b-button
             >
-            <!-- <div class="admin-seat-block">
-                <div v-for="(seat, index) in seats" :key="seat.id">
-                    <Seat
-                        v-bind:delegateCode="seat.delegateCode"
-                        :seatId="seat.id"
-                        :index="index"
-                        :occupied="seat.occupied"
-                        :adminPermission="true"
-                        @reload="fetchData()"
-                    />
-                </div>
-            </div> -->
-        </div>
 
-        <div class="inline-seats-block">
-            <div class="left-seat-block">
-                <div v-for="seat in seats.leftSeats" :key="seat.id">
-                    <Seat
-                        v-bind:delegateCode="seat.delegateCode"
-                        :seatId="seat.id"
-                        :index="index"
-                        :occupied="seat.occupied"
-                        :adminPermission="true"
-                        @reload="fetchData()"
-                    />
+            <div class="inline-seats-block">
+                <div class="left-seat-block">
+                    <div v-for="seat in separatedSeats.leftSeats" :key="seat.id">
+                        <Seat
+                            v-bind:delegateCode="seat.delegateCode"
+                            :seatId="seat.id"
+                            :index="seat.index"
+                            :occupied="seat.occupied"
+                            :adminPermission="true"
+                            @reload="fetchData()"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="right-seat-block">
-                <div v-for="seat in seats.rightSeats" :key="seat.id">
-                    <Seat
-                        v-bind:delegateCode="seat.delegateCode"
-                        :seatId="seat.id"
-                        :index="index"
-                        :occupied="seat.occupied"
-                        :adminPermission="true"
-                        @reload="fetchData()"
-                    />
+                <div class="right-seat-block">
+                    <div v-for="seat in separatedSeats.rightSeats" :key="seat.id">
+                        <Seat
+                            v-bind:delegateCode="seat.delegateCode"
+                            :seatId="seat.id"
+                            :index="seat.index"
+                            :occupied="seat.occupied"
+                            :adminPermission="true"
+                            @reload="fetchData()"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,9 +65,10 @@ export default {
     },
     data() {
         return {
-            seats: {
-                rightSeats: [],
+            seats: [],
+            separatedSeats: {
                 leftSeats: [],
+                rightSeats: [],
             },
             seatList: [],
             isComponentModalActive: false,
@@ -88,32 +77,49 @@ export default {
         };
     },
     async created() {
-        this.fetchData();
+        await this.fetchData();
     },
     methods: {
         async fetchData() {
-            this.seats.rightSeats = await [];
-            this.seats.leftSeats = await [];
+            this.separatedSeats.rightSeats = await [];
+            this.separatedSeats.leftSeats = await [];
+            this.seats = await [];
+
             for (let i = 0; i < 77 * 2; i++) {
                 let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
                 if (column <= 7) {
-                    await this.seats.leftSeats.push({
+                    await this.separatedSeats.leftSeats.push({
                         id: `${i}`,
                         delegateCode: "",
                     });
                 } else if (column > 7) {
-                    await this.seats.rightSeats.push({
+                    await this.separatedSeats.rightSeats.push({
                         id: `${i}`,
                         delegateCode: "",
                     });
                 }
             }
+            for (let i = 0; i < 77 * 2; i++) {
+                await this.seats.push({ id: `${i}`, delegateCode: "" });
+            }
 
             await seatService.getAllSeat().then(seatsList => {
                 this.seatList = seatsList.data;
             });
-            await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
+            await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
                 this.seats = seatsView;
+            });
+
+            await this.seats.forEach(async seat => {
+                if (seat.index) {
+                    await seatPositionService.positionToData(seat.index).then(async posData => {
+                        if (posData.column <= 7) {
+                            this.separatedSeats.leftSeats[seat.index] = await seat;
+                        } else if (posData.column > 7) {
+                            this.separatedSeats.rightSeats[seat.index] = await seat;
+                        }
+                    });
+                }
             });
         },
         closeEditor() {
@@ -126,13 +132,7 @@ export default {
 
 <style>
 .admin-editor-block {
-    margin-left: 200px;
-    margin-right: 200px;
     margin-bottom: 100px;
-}
-.admin-seat-block {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
 .edit-seat-button {
     margin-bottom: 50px;

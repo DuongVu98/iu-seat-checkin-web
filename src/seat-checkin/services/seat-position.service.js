@@ -10,10 +10,15 @@ export default {
 
         return seatsView;
     },
+
+    //wrong approach
     async dataToSeatViewTest(seatsData, seatsView) {
         await seatsData.forEach(async seatData => {
             if (seatData.column <= 7) {
                 let position = (await seatData.row) * 14 - (14 - seatData.column) - 1;
+
+                //test
+                console.log(position);
                 seatsView.leftSeats[position].id = seatData.id;
                 seatsView.leftSeats[position].delegateCode = seatData.delegateCode;
                 seatsView.leftSeats[position].index = position;
@@ -48,25 +53,5 @@ export default {
                 column,
             };
         }
-    },
-    async separateSeat(seatsView) {
-        const leftSeats = [];
-        const rightSeats = [];
-        await seatsView.forEach(async seatView => {
-            console.log(seatView.index);
-            let column = (seatView.index + 1) % 14 == 0 ? 14 : (seatView.index + 1) % 14;
-            if (column <= 7) {
-                console.log(`${column} - left`);
-                leftSeats.push(seatView);
-            } else if (column > 7) {
-                console.log(`${column} - right`);
-                rightSeats.push(seatView);
-            }
-        });
-
-        return {
-            leftSeats: leftSeats,
-            rightSeats: rightSeats,
-        };
     },
 };
