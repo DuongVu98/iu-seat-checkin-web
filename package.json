@@ -10,7 +10,8 @@
         "webpack:watch": "webpack --watch --config webpack.config.js",
         "start:dev": "vue-cli-service serve --mode development",
         "start:vagrant": "vue-cli-service serve --mode vagrant",
-        "start:prod": "node src/production/server.js",
+        "start:prod": "vue-cli-service serve --mode production",
+        "start:build": "node src/production/server.js",
         "lint": "vue-cli-service lint",
         "dev": "cross-env NODE_ENV=development webpack",
         "start": "vue-cli-service serve"

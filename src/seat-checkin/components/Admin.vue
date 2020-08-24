@@ -4,8 +4,35 @@
             <b-button class="edit-seat-button" type="is-success" rounded @click="codeEditor = true"
                 >Code editor</b-button
             >
-            <div class="admin-seat-block">
+            <!-- <div class="admin-seat-block">
                 <div v-for="(seat, index) in seats" :key="seat.id">
+                    <Seat
+                        v-bind:delegateCode="seat.delegateCode"
+                        :seatId="seat.id"
+                        :index="index"
+                        :occupied="seat.occupied"
+                        :adminPermission="true"
+                        @reload="fetchData()"
+                    />
+                </div>
+            </div> -->
+        </div>
+
+        <div class="inline-seats-block">
+            <div class="left-seat-block">
+                <div v-for="seat in seats.leftSeats" :key="seat.id">
+                    <Seat
+                        v-bind:delegateCode="seat.delegateCode"
+                        :seatId="seat.id"
+                        :index="index"
+                        :occupied="seat.occupied"
+                        :adminPermission="true"
+                        @reload="fetchData()"
+                    />
+                </div>
+            </div>
+            <div class="right-seat-block">
+                <div v-for="seat in seats.rightSeats" :key="seat.id">
                     <Seat
                         v-bind:delegateCode="seat.delegateCode"
                         :seatId="seat.id"
@@ -17,6 +44,7 @@
                 </div>
             </div>
         </div>
+
         <v-dialog v-model="codeEditor" width="1000">
             <div>
                 <v-card>
@@ -49,7 +77,10 @@ export default {
     },
     data() {
         return {
-            seats: [],
+            seats: {
+                rightSeats: [],
+                leftSeats: [],
+            },
             seatList: [],
             isComponentModalActive: false,
             dialog: false,
@@ -57,28 +88,31 @@ export default {
         };
     },
     async created() {
-        for (let i = 0; i < 77 * 2; i++) {
-            await this.seats.push({ id: `${i}`, delegateCode: "" });
-        }
-
-        await seatService.getAllSeat().then(seatsList => {
-            this.seatList = seatsList.data;
-        });
-        await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
-            this.seats = seatsView;
-        });
+        this.fetchData();
     },
     methods: {
         async fetchData() {
-            this.seats = await [];
+            this.seats.rightSeats = await [];
+            this.seats.leftSeats = await [];
             for (let i = 0; i < 77 * 2; i++) {
-                await this.seats.push({ id: `${i}`, delegateCode: "" });
+                let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
+                if (column <= 7) {
+                    await this.seats.leftSeats.push({
+                        id: `${i}`,
+                        delegateCode: "",
+                    });
+                } else if (column > 7) {
+                    await this.seats.rightSeats.push({
+                        id: `${i}`,
+                        delegateCode: "",
+                    });
+                }
             }
 
             await seatService.getAllSeat().then(seatsList => {
                 this.seatList = seatsList.data;
             });
-            await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+            await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
                 this.seats = seatsView;
             });
         },
@@ -105,5 +139,22 @@ export default {
 }
 .seat-code-editor {
     width: 1000px;
+}
+
+.inline-seats-block {
+    margin-left: 7%;
+    margin-right: 7%;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.left-seat-block {
+    margin-right: 100px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+}
+.right-seat-block {
+    margin-left: 100px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 </style>
