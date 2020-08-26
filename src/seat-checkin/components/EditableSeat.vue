@@ -1,9 +1,7 @@
 <template>
     <div class="editor-seat-box" @click="openModal()">
         <t-card variant="danger" class="p-1 editor-seat" v-bind="attrs" v-on="on">
-            <div class="flex justify-between inside-seat">
-                {{ delegateCode }}
-            </div>
+            <div class="flex justify-between">{{ delegateCode }}</div>
         </t-card>
         <v-dialog v-model="isComponentModalActive" width="500">
             <v-card-title class="headline grey lighten-2">
@@ -50,7 +48,7 @@ export default {
         };
     },
     async created() {
-        await seatPositionService.positionToData(this.$props.index + 1).then(data => {
+        await seatPositionService.positionToData(this.$props.index).then(data => {
             this.seatRow = data.row;
             this.seatColumn = data.column;
         });
@@ -109,10 +107,6 @@ export default {
 </script>
 
 <style>
-.editor-seat-box {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-}
 .editor-seat:hover {
     background-color: tomato;
     color: white;
