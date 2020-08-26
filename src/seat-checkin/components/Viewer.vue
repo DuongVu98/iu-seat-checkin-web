@@ -1,12 +1,12 @@
 <template>
     <div class="inline-seats-block">
         <div class="left-seat-block">
-            <div v-for="seat in seats.leftSeats" :key="seat.id">
+            <div v-for="seat in leftSeats" :key="seat.id">
                 <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
             </div>
         </div>
         <div class="right-seat-block">
-            <div v-for="seat in seats.rightSeats" :key="seat.id">
+            <div v-for="seat in rightSeats" :key="seat.id">
                 <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
             </div>
         </div>
@@ -26,36 +26,64 @@ export default {
     },
     data() {
         return {
-            seats: {
-                rightSeats: [],
+            seats: [],
+            separatedSeats: {
                 leftSeats: [],
+                rightSeats: [],
             },
+            leftSeats: [],
+            rightSeats: [],
             seatList: [],
         };
     },
-    async mounted() {
-        for (let i = 0; i < 77 * 2; i++) {
-            let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
-            if (column <= 7) {
-                await this.seats.leftSeats.push({
-                    id: `${i}`,
-                    delegateCode: "",
-                });
-            } else if (column > 7) {
-                await this.seats.rightSeats.push({
-                    id: `${i}`,
-                    delegateCode: "",
-                });
-            }
-        }
+    async created() {
+        // for (let i = 0; i < 77 * 2; i++) {
+        //     let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
+        //     if (column <= 7) {
+        //         await this.seats.leftSeats.push({
+        //             id: `${i}`,
+        //             delegateCode: "",
+        //         });
+        //     } else if (column > 7) {
+        //         await this.seats.rightSeats.push({
+        //             id: `${i}`,
+        //             delegateCode: "",
+        //         });
+        //     }
+        // }
 
-        await seatService.getAllSeat().then(seatsList => {
-            this.seatList = seatsList.data;
-        });
-        await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
-            this.seats = seatsView;
-        });
+        // await seatService.getAllSeat().then(seatsList => {
+        //     this.seatList = seatsList.data;
+        // });
+        // await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
+        //     this.seats = seatsView;
+        // });
+        this.fetchData();
     },
+    methods: {
+        async fetchData() {
+            this.separatedSeats.rightSeats = await [];
+            this.separatedSeats.leftSeats = await [];
+            this.seats = await [];
+
+            for (let i = 0; i < 77 * 2; i++) {
+                await this.seats.push({ id: `${i}`, delegateCode: "", index: i });
+            }
+
+            await seatService.getAllSeat().then(seatsList => {
+                this.seatList = seatsList.data;
+            });
+            await seatPositionService.dataToSeatView(this.seatList, this.seats).then(seatsView => {
+                this.seats = seatsView;
+            });
+
+            await seatPositionService.transformSeatsArray(this.seats, this.separatedSeats, async result => {
+                this.separatedSeats = await result;
+                this.leftSeats = this.separatedSeats.leftSeats;
+                this.rightSeats = this.separatedSeats.rightSeats;
+            });
+        },
+    }
 };
 </script>
 

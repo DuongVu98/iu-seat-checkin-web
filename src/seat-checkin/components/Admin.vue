@@ -7,7 +7,7 @@
 
             <div class="inline-seats-block">
                 <div class="left-seat-block">
-                    <div v-for="seat in separatedSeats.leftSeats" :key="seat.id">
+                    <div v-for="seat in leftSeats" :key="seat.id">
                         <Seat
                             v-bind:delegateCode="seat.delegateCode"
                             :seatId="seat.id"
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="right-seat-block">
-                    <div v-for="seat in separatedSeats.rightSeats" :key="seat.id">
+                    <div v-for="seat in rightSeats" :key="seat.id">
                         <Seat
                             v-bind:delegateCode="seat.delegateCode"
                             :seatId="seat.id"
@@ -32,7 +32,6 @@
                 </div>
             </div>
         </div>
-
         <v-dialog v-model="codeEditor" width="1000">
             <div>
                 <v-card>
@@ -70,6 +69,8 @@ export default {
                 leftSeats: [],
                 rightSeats: [],
             },
+            leftSeats: [],
+            rightSeats: [],
             seatList: [],
             isComponentModalActive: false,
             dialog: false,
@@ -77,30 +78,16 @@ export default {
         };
     },
     async created() {
-        await this.fetchData();
+        this.fetchData();
     },
     methods: {
-        async fetchData() {
+        fetchData: async function() {
             this.separatedSeats.rightSeats = await [];
             this.separatedSeats.leftSeats = await [];
             this.seats = await [];
 
             for (let i = 0; i < 77 * 2; i++) {
-                let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
-                if (column <= 7) {
-                    await this.separatedSeats.leftSeats.push({
-                        id: `${i}`,
-                        delegateCode: "",
-                    });
-                } else if (column > 7) {
-                    await this.separatedSeats.rightSeats.push({
-                        id: `${i}`,
-                        delegateCode: "",
-                    });
-                }
-            }
-            for (let i = 0; i < 77 * 2; i++) {
-                await this.seats.push({ id: `${i}`, delegateCode: "" });
+                await this.seats.push({ id: `${i}`, delegateCode: "", index: i });
             }
 
             await seatService.getAllSeat().then(seatsList => {
@@ -110,16 +97,10 @@ export default {
                 this.seats = seatsView;
             });
 
-            await this.seats.forEach(async seat => {
-                if (seat.index) {
-                    await seatPositionService.positionToData(seat.index).then(async posData => {
-                        if (posData.column <= 7) {
-                            this.separatedSeats.leftSeats[seat.index] = await seat;
-                        } else if (posData.column > 7) {
-                            this.separatedSeats.rightSeats[seat.index] = await seat;
-                        }
-                    });
-                }
+            await seatPositionService.transformSeatsArray(this.seats, this.separatedSeats, async result => {
+                this.separatedSeats = await result;
+                this.leftSeats = this.separatedSeats.leftSeats;
+                this.rightSeats = this.separatedSeats.rightSeats;
             });
         },
         closeEditor() {
