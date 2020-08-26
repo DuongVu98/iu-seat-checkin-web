@@ -37,27 +37,6 @@ export default {
         };
     },
     async created() {
-        // for (let i = 0; i < 77 * 2; i++) {
-        //     let column = await ((i + 1) % 14 == 0 ? 14 : (i + 1) % 14);
-        //     if (column <= 7) {
-        //         await this.seats.leftSeats.push({
-        //             id: `${i}`,
-        //             delegateCode: "",
-        //         });
-        //     } else if (column > 7) {
-        //         await this.seats.rightSeats.push({
-        //             id: `${i}`,
-        //             delegateCode: "",
-        //         });
-        //     }
-        // }
-
-        // await seatService.getAllSeat().then(seatsList => {
-        //     this.seatList = seatsList.data;
-        // });
-        // await seatPositionService.dataToSeatViewTest(this.seatList, this.seats).then(seatsView => {
-        //     this.seats = seatsView;
-        // });
         this.fetchData();
     },
     methods: {

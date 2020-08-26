@@ -26,47 +26,6 @@ export default {
         });
         await callback(toSeatsViews);
     },
-
-    async dataToSeparatedViews(seatsData, separatedViews) {
-        seatsData.forEach(async seatData => {
-            let position = seatData.row * 14 - (14 - seatData.column) - 1;
-            if (seatData.column <= 7) {
-                separatedViews.leftSeats[position].id = seatData.id;
-                separatedViews.leftSeats[position].delegateCode = seatData.delegateCode;
-                separatedViews.leftSeats[position].index = position;
-                separatedViews.leftSeats[position].occupied = seatData.occupied;
-            } else if (seatData.column > 7) {
-                separatedViews.rightSeats[position].id = seatData.id;
-                separatedViews.rightSeats[position].delegateCode = seatData.delegateCode;
-                separatedViews.rightSeats[position].index = position;
-                separatedViews.rightSeats[position].occupied = seatData.occupied;
-            }
-        });
-        return separatedViews;
-    },
-    //wrong approach
-    async dataToSeatViewTest(seatsData, seatsView) {
-        await seatsData.forEach(async seatData => {
-            if (seatData.column <= 7) {
-                let position = (await seatData.row) * 14 - (14 - seatData.column) - 1;
-
-                //test
-                console.log(position);
-                seatsView.leftSeats[position].id = seatData.id;
-                seatsView.leftSeats[position].delegateCode = seatData.delegateCode;
-                seatsView.leftSeats[position].index = position;
-                seatsView.leftSeats[position].occupied = seatData.occupied;
-            } else if (seatData.column > 7) {
-                let position = (await seatData.row) * 14 - (14 - seatData.column) - 1;
-                seatsView.rightSeats[position].id = seatData.id;
-                seatsView.rightSeats[position].delegateCode = seatData.delegateCode;
-                seatsView.rightSeats[position].index = position;
-                seatsView.rightSeats[position].occupied = seatData.occupied;
-            }
-        });
-
-        return seatsView;
-    },
     async dataToPosition(seatData) {
         return seatData.row * 14 - (14 - seatData.column) - 1;
     },
