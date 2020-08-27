@@ -74,7 +74,7 @@ export default {
 
 <style>
 .occupied-seat {
-    background-color: blueviolet;
+    background-color: #f0932b;
     color: white;
     text-align: center;
     margin-left: 5px;
@@ -86,8 +86,9 @@ export default {
     font-weight: bold;
 }
 .empty-seat {
-    background-color: aquamarine;
-    color: white;
+    background-color: #dadada;
+    color: black;
+    font-weight: bold;
     text-align: center;
     margin-left: 5px;
     margin-right: 5px;
