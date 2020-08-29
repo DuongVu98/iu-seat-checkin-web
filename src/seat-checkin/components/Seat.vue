@@ -7,7 +7,7 @@
         </t-card>
     </div>
 </template>
-
+<script src="/socket.io/socket.io.js"></script>
 <script>
 import seatPositionService from "../services/seat-position.service";
 import seatApiService from "../services/seat.service";
@@ -34,6 +34,15 @@ export default {
             this.seatColumn = data.column;
         });
     },
+    sockets: {
+        toggleSeatOccupied(payload) {
+            if (this.delegateCode != "" && this.adminPermission == false) {
+                if (this.seatId == payload.id) {
+                    this.seatOccupied = !this.seatOccupied;
+                }
+            }
+        },
+    },
     computed: {
         position: function() {
             return {
@@ -57,12 +66,12 @@ export default {
         async setOccupied() {
             if (this.delegateCode != "" && this.adminPermission) {
                 this.seatOccupied = await !this.seatOccupied;
-                console.log({
-                    row: this.seatRow,
-                    col: this.seatColumn,
-                    index: this.$props.index,
-                });
                 seatApiService.updateSeatOccupied({
+                    id: this.seatId,
+                    occupied: this.seatOccupied,
+                });
+
+                this.$socket.emit("toggleSeatOccupied", {
                     id: this.seatId,
                     occupied: this.seatOccupied,
                 });

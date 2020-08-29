@@ -2,12 +2,22 @@
     <div class="inline-seats-block">
         <div class="left-seat-block">
             <div v-for="seat in leftSeats" :key="seat.id">
-                <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :occupied="seat.occupied"
+                    :adminPermission="false"
+                    :seatId="seat.id"
+                />
             </div>
         </div>
         <div class="right-seat-block">
             <div v-for="seat in rightSeats" :key="seat.id">
-                <Seat v-bind:delegateCode="seat.delegateCode" :occupied="seat.occupied" :adminPermission="false" />
+                <Seat
+                    v-bind:delegateCode="seat.delegateCode"
+                    :occupied="seat.occupied"
+                    :adminPermission="false"
+                    :seatId="seat.id"
+                />
             </div>
         </div>
     </div>
@@ -62,7 +72,7 @@ export default {
                 this.rightSeats = this.separatedSeats.rightSeats;
             });
         },
-    }
+    },
 };
 </script>
 
