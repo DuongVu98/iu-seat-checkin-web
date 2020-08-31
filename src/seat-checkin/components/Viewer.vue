@@ -1,25 +1,29 @@
 <template>
     <div>
-        <NumerialInfo />
-        <div class="inline-seats-block">
-            <div class="left-seat-block">
-                <div v-for="seat in leftSeats" :key="seat.id">
-                    <Seat
-                        v-bind:delegateCode="seat.delegateCode"
-                        :occupied="seat.occupied"
-                        :adminPermission="false"
-                        :seatId="seat.id"
-                    />
-                </div>
+        <div class="main-display">
+            <div align="right">
+                <NumerialInfo :adminPermission="false" />
             </div>
-            <div class="right-seat-block">
-                <div v-for="seat in rightSeats" :key="seat.id">
-                    <Seat
-                        v-bind:delegateCode="seat.delegateCode"
-                        :occupied="seat.occupied"
-                        :adminPermission="false"
-                        :seatId="seat.id"
-                    />
+            <div class="inline-seats-block">
+                <div class="left-seat-block">
+                    <div v-for="seat in leftSeats" :key="seat.id">
+                        <Seat
+                            v-bind:delegateCode="seat.delegateCode"
+                            :occupied="seat.occupied"
+                            :adminPermission="false"
+                            :seatId="seat.id"
+                        />
+                    </div>
+                </div>
+                <div class="right-seat-block">
+                    <div v-for="seat in rightSeats" :key="seat.id">
+                        <Seat
+                            v-bind:delegateCode="seat.delegateCode"
+                            :occupied="seat.occupied"
+                            :adminPermission="false"
+                            :seatId="seat.id"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,9 +86,11 @@ export default {
 </script>
 
 <style>
-.inline-seats-block {
+.main-display {
     margin-left: 7%;
     margin-right: 7%;
+}
+.inline-seats-block {
     display: grid;
     grid-template-columns: auto auto;
 }
