@@ -1,5 +1,6 @@
 <template>
     <div>
+        <NumerialInfo />
         <div class="admin-editor-block ">
             <b-button class="edit-seat-button" type="is-success" rounded @click="codeEditor = true"
                 >Code editor</b-button
@@ -52,7 +53,7 @@
 <script>
 import Seat from "./Seat.vue";
 import SeatCodeEditor from "./SeatCodeEditor";
-
+import NumerialInfo from "./NumerialInfo";
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
 
@@ -61,6 +62,7 @@ export default {
     components: {
         Seat,
         SeatCodeEditor,
+        NumerialInfo,
     },
     data() {
         return {

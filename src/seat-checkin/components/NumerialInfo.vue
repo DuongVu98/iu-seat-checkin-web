@@ -10,6 +10,7 @@
         </v-card>
     </div>
 </template>
+<script src="/socket.io/socket.io.js"></script>
 <script>
 import numerialInfoService from "../services/numerial-info.service";
 
@@ -22,10 +23,20 @@ export default {
         };
     },
     created() {
-        numerialInfoService.getNumerialInformation().then(res => {
-            this.delegatesAmount = res.data.delegatesAmount;
-            this.occupiedAmount = res.data.occupiedAmount;
-        });
+        this.fetchData();
+    },
+    sockets: {
+        toggleSeatOccupied(payload) {
+            this.fetchData();
+        },
+    },
+    methods: {
+        fetchData() {
+            numerialInfoService.getNumerialInformation().then(res => {
+                this.delegatesAmount = res.data.delegatesAmount;
+                this.occupiedAmount = res.data.occupiedAmount;
+            });
+        },
     },
 };
 </script>
