@@ -29,6 +29,9 @@ export default {
             justify: "center",
         };
     },
+    created() {
+        document.title = "Điểm danh đại biểu";
+    },
 };
 </script>
 

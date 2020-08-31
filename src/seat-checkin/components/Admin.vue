@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Sidebar />
         <div class="admin-editor-block">
             <div class="main-display">
                 <div align="right">
@@ -54,6 +55,8 @@
 import Seat from "./Seat.vue";
 import SeatCodeEditor from "./SeatCodeEditor";
 import NumerialInfo from "./NumerialInfo";
+import Sidebar from "./Sidebar";
+
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
 
@@ -63,6 +66,7 @@ export default {
         Seat,
         SeatCodeEditor,
         NumerialInfo,
+        Sidebar,
     },
     data() {
         return {
