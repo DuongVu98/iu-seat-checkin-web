@@ -1,7 +1,7 @@
 <template>
     <div class="seat-box" @click="setOccupied()">
         <t-card :class="[seatOccupied ? 'occupied-seat' : 'empty-seat']" variant="appSeat">
-            <div class="flex justify-between inside-seat">
+            <div class="inside-seat">
                 {{ delegateCode }}
             </div>
         </t-card>
@@ -105,5 +105,8 @@ export default {
     padding: 10px;
     width: 70px;
     height: 50px;
+}
+.inside-seat {
+    text-align: center;
 }
 </style>
