@@ -1,23 +1,26 @@
 <template>
-    <div class="inline-seats-block">
-        <div class="left-seat-block">
-            <div v-for="seat in leftSeats" :key="seat.id">
-                <Seat
-                    v-bind:delegateCode="seat.delegateCode"
-                    :occupied="seat.occupied"
-                    :adminPermission="false"
-                    :seatId="seat.id"
-                />
+    <div>
+        <NumerialInfo />
+        <div class="inline-seats-block">
+            <div class="left-seat-block">
+                <div v-for="seat in leftSeats" :key="seat.id">
+                    <Seat
+                        v-bind:delegateCode="seat.delegateCode"
+                        :occupied="seat.occupied"
+                        :adminPermission="false"
+                        :seatId="seat.id"
+                    />
+                </div>
             </div>
-        </div>
-        <div class="right-seat-block">
-            <div v-for="seat in rightSeats" :key="seat.id">
-                <Seat
-                    v-bind:delegateCode="seat.delegateCode"
-                    :occupied="seat.occupied"
-                    :adminPermission="false"
-                    :seatId="seat.id"
-                />
+            <div class="right-seat-block">
+                <div v-for="seat in rightSeats" :key="seat.id">
+                    <Seat
+                        v-bind:delegateCode="seat.delegateCode"
+                        :occupied="seat.occupied"
+                        :adminPermission="false"
+                        :seatId="seat.id"
+                    />
+                </div>
             </div>
         </div>
     </div>
@@ -25,6 +28,7 @@
 
 <script>
 import Seat from "./Seat.vue";
+import NumerialInfo from "./NumerialInfo";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
@@ -33,6 +37,7 @@ export default {
     name: "Viewer",
     components: {
         Seat,
+        NumerialInfo,
     },
     data() {
         return {
