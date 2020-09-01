@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="side-nav">
-            <v-navigation-drawer expand-on-hover="true" :mini-variant="false" :src="bg" dark>
+            <v-navigation-drawer expand-on-hover="true" :mini-variant="miniVariant" :src="bg" dark>
                 <v-list dense nav class="py-0">
                     <v-list-item two-line :class="miniVariant && 'px-0'">
                         <v-list-item-avatar>
@@ -35,6 +35,7 @@ export default {
     name: "Sidebar",
     data() {
         return {
+            miniVariant: true,
             items: [
                 { title: "Viewer", icon: "mdi-view-dashboard", action: { path: "/" } },
                 { title: "Code editor", icon: "mdi-image", action: { event: "code-editor" } },
