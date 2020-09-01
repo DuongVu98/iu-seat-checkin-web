@@ -36,7 +36,7 @@ export default {
     data() {
         return {
             items: [
-                { title: "Viewer", icon: "mdi-view-dashboard", action: { path: "/" } },
+                { title: "Viewer", icon: "mdi-view-dashboard", action: { path: "/viewer" } },
                 { title: "Code editor", icon: "mdi-image", action: { event: "code-editor" } },
                 { title: "Logout", icon: "mdi-help-box", action: { event: "logout" } },
             ],

@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <router-view />
-    </div>
-    <!-- <v-app>
+    <v-app>
         <div class="whole-app">
             <div class="logo-image">
                 <v-row :align="alignment" :justify="justify">
@@ -20,17 +17,12 @@
                 <router-view />
             </v-main>
         </div>
-    </v-app> -->
+    </v-app>
 </template>
 
 <script>
-import Main from "./seat-checkin/components/Main";
-
 export default {
-    name: "App",
-    components: {
-        Main,
-    },
+    name: "Main",
     data: () => {
         return {
             alignment: "center",
