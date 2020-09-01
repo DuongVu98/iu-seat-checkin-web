@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Sidebar />
+        <Sidebar @code-editor="codeEditor = true" />
         <div class="admin-editor-block">
             <div class="main-display">
                 <div align="right">

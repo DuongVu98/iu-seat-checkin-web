@@ -16,13 +16,13 @@
 
                     <v-divider></v-divider>
 
-                    <v-list-item v-for="item in items" :key="item.title" link @click="test()">
+                    <v-list-item v-for="item in items" :key="item.title" link @click="test(item.action)">
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
 
                         <v-list-item-content>
-                            <v-list-item-title>{{ item.title }} </v-list-item-title>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -36,9 +36,9 @@ export default {
     data() {
         return {
             items: [
-                { title: "Viewer", icon: "mdi-view-dashboard" },
-                { title: "Code editor", icon: "mdi-image" },
-                { title: "Logout", icon: "mdi-help-box" },
+                { title: "Viewer", icon: "mdi-view-dashboard", action: { path: "/" } },
+                { title: "Code editor", icon: "mdi-image", action: { event: "code-editor" } },
+                { title: "Logout", icon: "mdi-help-box", action: { event: "logout" } },
             ],
         };
     },
@@ -48,8 +48,12 @@ export default {
         },
     },
     methods: {
-        test() {
-            this.$router.push("/");
+        test(action) {
+            if (action.path) {
+                this.$router.push(action.path);
+            } else if (action.event) {
+                this.$emit(action.event);
+            }
         },
     },
 };
