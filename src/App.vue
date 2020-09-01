@@ -38,6 +38,7 @@ export default {
 <style>
 .whole-app {
     background-image: linear-gradient(to bottom right, #153f6f, #0ab0da);
+    height: 100%;
 }
 .room-board {
     margin-bottom: 40px;
