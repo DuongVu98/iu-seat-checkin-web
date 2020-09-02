@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Sidebar @code-editor="codeEditor = true" />
+        <Sidebar @code-editor="codeEditor = true" @logout="doLogout()" />
         <div class="admin-editor-block">
             <div class="main-display">
                 <div align="right">
@@ -112,6 +112,9 @@ export default {
         closeEditor() {
             this.codeEditor = false;
             this.fetchData();
+        },
+        doLogout() {
+            this.$router.push("/login");
         },
     },
 };

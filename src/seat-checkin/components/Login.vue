@@ -33,7 +33,7 @@
                                                     ></v-text-field>
                                                     <v-text-field
                                                         :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                                        :type="hidePassword ? 'text' : 'password'"
+                                                        :type="hidePassword ? 'password' : 'text'"
                                                         label="Password"
                                                         class="input-group--focused"
                                                         v-model="password"
@@ -75,7 +75,14 @@ export default {
         };
     },
     methods: {
-        doLogin() {},
+        doLogin() {
+            if (this.username === "admin" && this.password === "dhquocte") {
+                console.log("correct");
+                this.$router.push("/admin")
+            } else {
+                console.log("incorrect");
+            }
+        },
     },
 };
 </script>
