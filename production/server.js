@@ -3,7 +3,7 @@ var express = require("express");
 var subdomain = require("express-subdomain");
 var router = express.Router();
 
-var DIST_DIR = path.join(__dirname, "../../dist");
+var DIST_DIR = path.join(__dirname, "../dist");
 var PORT = 8080;
 var app = express();
 

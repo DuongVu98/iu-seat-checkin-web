@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import "./plugins/socket-client";
 import "./assets/styles/main.css";
 import "./plugins/vue-tailwind";
 import "./plugins/buefy";

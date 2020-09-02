@@ -1,33 +1,35 @@
 <template>
     <div>
-        <div class="admin-editor-block ">
-            <b-button class="edit-seat-button" type="is-success" rounded @click="codeEditor = true"
-                >Code editor</b-button
-            >
-
-            <div class="inline-seats-block">
-                <div class="left-seat-block">
-                    <div v-for="seat in leftSeats" :key="seat.id">
-                        <Seat
-                            v-bind:delegateCode="seat.delegateCode"
-                            :seatId="seat.id"
-                            :index="seat.index"
-                            :occupied="seat.occupied"
-                            :adminPermission="true"
-                            @reload="fetchData()"
-                        />
-                    </div>
+        <Sidebar @code-editor="codeEditor = true" @logout="doLogout()" />
+        <div class="admin-editor-block">
+            <div class="main-display">
+                <div align="right">
+                    <NumerialInfo :adminPermission="true" @buttonClicked="codeEditor = true" />
                 </div>
-                <div class="right-seat-block">
-                    <div v-for="seat in rightSeats" :key="seat.id">
-                        <Seat
-                            v-bind:delegateCode="seat.delegateCode"
-                            :seatId="seat.id"
-                            :index="seat.index"
-                            :occupied="seat.occupied"
-                            :adminPermission="true"
-                            @reload="fetchData()"
-                        />
+                <div class="inline-seats-block">
+                    <div class="left-seat-block">
+                        <div v-for="seat in leftSeats" :key="seat.id">
+                            <Seat
+                                v-bind:delegateCode="seat.delegateCode"
+                                :seatId="seat.id"
+                                :index="seat.index"
+                                :occupied="seat.occupied"
+                                :adminPermission="true"
+                                @reload="fetchData()"
+                            />
+                        </div>
+                    </div>
+                    <div class="right-seat-block">
+                        <div v-for="seat in rightSeats" :key="seat.id">
+                            <Seat
+                                v-bind:delegateCode="seat.delegateCode"
+                                :seatId="seat.id"
+                                :index="seat.index"
+                                :occupied="seat.occupied"
+                                :adminPermission="true"
+                                @reload="fetchData()"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,6 +54,8 @@
 <script>
 import Seat from "./Seat.vue";
 import SeatCodeEditor from "./SeatCodeEditor";
+import NumerialInfo from "./NumerialInfo";
+import Sidebar from "./Sidebar";
 
 import seatService from "../services/seat.service";
 import seatPositionService from "../services/seat-position.service";
@@ -61,6 +65,8 @@ export default {
     components: {
         Seat,
         SeatCodeEditor,
+        NumerialInfo,
+        Sidebar,
     },
     data() {
         return {
@@ -78,7 +84,12 @@ export default {
         };
     },
     async created() {
-        this.fetchData();
+        let isLogin = await this.$store.getters.isLogin;
+        if (isLogin == false) {
+            this.$router.push("/login");
+        } else {
+            this.fetchData();
+        }
     },
     methods: {
         fetchData: async function() {
@@ -107,6 +118,10 @@ export default {
             this.codeEditor = false;
             this.fetchData();
         },
+        doLogout() {
+            this.$store.dispatch("doLogout");
+            this.$router.push("/login");
+        },
     },
 };
 </script>
@@ -122,9 +137,11 @@ export default {
     width: 1000px;
 }
 
-.inline-seats-block {
+.main-display {
     margin-left: 7%;
     margin-right: 7%;
+}
+.inline-seats-block {
     display: grid;
     grid-template-columns: auto auto;
 }
