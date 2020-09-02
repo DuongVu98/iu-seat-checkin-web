@@ -27,6 +27,9 @@
                                                         class="input-group--focused"
                                                         v-model="username"
                                                         prepend-icon="mdi-account"
+                                                        :error="inValidInput"
+                                                        :rules="[rules.required]"
+                                                        @focus="resetInputValidState()"
                                                         outlined
                                                         rounded
                                                         required
@@ -38,6 +41,9 @@
                                                         class="input-group--focused"
                                                         v-model="password"
                                                         prepend-icon="mdi-lock"
+                                                        :error="inValidInput"
+                                                        :rules="[rules.required]"
+                                                        @focus="resetInputValidState()"
                                                         outlined
                                                         rounded
                                                         required
@@ -61,6 +67,23 @@
                 </div>
             </v-card>
         </div>
+        <v-snackbar
+            v-model="alert"
+            :timeout="3000"
+            color="deep-orange accent-4"
+            absolute
+            text
+            rounded="pill"
+            elevation="24"
+        >
+            {{ alertMessge }}
+            <template v-slot:action="{ attrs }">
+                <v-btn icon color="deep-orange accent-4" text v-bind="attrs" @click="alert = false">
+                    <v-icon>fas fa-times-circle</v-icon>
+                    <!-- <i class="fas fa-times-circle"></i> -->
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 <script>
@@ -72,6 +95,12 @@ export default {
             password: "",
             hidePassword: true,
             valid: true,
+            inValidInput: false,
+            rules: {
+                required: value => !!value || "Required.",
+            },
+            alert: false,
+            alertMessge: "Invalid username or password",
         };
     },
     methods: {
@@ -81,8 +110,12 @@ export default {
                 this.$store.dispatch("doLogin");
                 this.$router.push("/admin");
             } else {
-                console.log("incorrect");
+                this.inValidInput = true;
+                this.alert = true;
             }
+        },
+        resetInputValidState() {
+            this.inValidInput = false;
         },
     },
 };
@@ -131,5 +164,11 @@ export default {
 }
 .login-block {
     width: 555px;
+}
+.invalid-input-alert {
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
 }
 </style>
