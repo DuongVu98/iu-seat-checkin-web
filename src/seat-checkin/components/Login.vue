@@ -87,6 +87,7 @@
     </div>
 </template>
 <script>
+import authService from "../services/auth.service";
 export default {
     name: "Login",
     data() {
@@ -113,7 +114,8 @@ export default {
     methods: {
         async doLogin() {
             this.cardLoading = true;
-            if (this.username === "admin" && this.password === "dhquocte") {
+            let authentication = await authService.authenticate(this.username, this.password)
+            if (authentication == true) {
                 console.log("correct");
                 this.$store.dispatch("doLogin");
                 this.$router.push("/admin");
