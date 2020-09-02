@@ -27,6 +27,11 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path: "/login",
+        name: "Login",
+        component: Login,
+    },
+    {
         path: "/",
         component: Main,
         children: [
@@ -41,19 +46,14 @@ const routes = [
                 component: Login,
             },
             {
-                path: "/viewer",
+                path: "/**",
                 name: "Viewer",
                 component: Viewer,
             },
         ],
     },
     {
-        path: "/login",
-        name: "Login",
-        component: Login,
-    },
-    {
-        path: "/**",
+        path: "/viewer",
         name: "Viewer",
         component: Viewer,
     },
