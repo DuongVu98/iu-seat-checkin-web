@@ -2,11 +2,12 @@ FROM node:12-alpine3.9 as build-stage
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY production ./production
+COPY dist ./dist
+
+WORKDIR /usr/src/app/production
 
 RUN npm cache clean --force
 RUN npm install
 
-COPY . .
-
-ENTRYPOINT [ "npm", "run", "start:build" ]
+ENTRYPOINT [ "npm", "run", "start" ]
