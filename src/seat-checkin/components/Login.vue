@@ -103,6 +103,7 @@ export default {
             alert: false,
             alertMessge: "Invalid username or password",
             cardLoading: false,
+            authentication: false,
         };
     },
     async created() {
@@ -114,9 +115,10 @@ export default {
     methods: {
         async doLogin() {
             this.cardLoading = true;
-            let authentication = await authService.authenticate(this.username, this.password)
-            if (authentication == true) {
-                console.log("correct");
+            authService.authenticate(this.username, this.password).then(result => {
+                this.authentication = result.data;
+            });
+            if (this.authentication == true) {
                 this.$store.dispatch("doLogin");
                 this.$router.push("/admin");
             } else {
