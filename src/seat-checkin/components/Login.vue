@@ -78,7 +78,8 @@ export default {
         doLogin() {
             if (this.username === "admin" && this.password === "dhquocte") {
                 console.log("correct");
-                this.$router.push("/admin")
+                this.$store.dispatch("doLogin");
+                this.$router.push("/admin");
             } else {
                 console.log("incorrect");
             }

@@ -84,7 +84,12 @@ export default {
         };
     },
     async created() {
-        this.fetchData();
+        let isLogin = await this.$store.getters.isLogin;
+        if (isLogin == false) {
+            this.$router.push("/login");
+        } else {
+            this.fetchData();
+        }
     },
     methods: {
         fetchData: async function() {
@@ -114,6 +119,7 @@ export default {
             this.fetchData();
         },
         doLogout() {
+            this.$store.dispatch("doLogout");
             this.$router.push("/login");
         },
     },
