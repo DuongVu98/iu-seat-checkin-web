@@ -115,7 +115,7 @@ export default {
     methods: {
         async doLogin() {
             this.cardLoading = true;
-            authService.authenticate(this.username, this.password).then(result => {
+            await authService.authenticate(this.username, this.password).then(result => {
                 this.authentication = result.data;
             });
             if (this.authentication == true) {
