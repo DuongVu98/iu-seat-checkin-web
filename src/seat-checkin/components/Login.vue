@@ -15,7 +15,7 @@
                         <v-col cols="6">
                             <div class="both-sides">
                                 <div class="login-block">
-                                    <v-card class="rounded-lg">
+                                    <v-card class="rounded-lg" :loading="cardLoading">
                                         <v-toolbar color="primary" dark flat>
                                             <v-toolbar-title>Admin login</v-toolbar-title>
                                         </v-toolbar>
@@ -53,6 +53,7 @@
                                                         :disabled="!valid"
                                                         color="success"
                                                         class="mr-4"
+                                                        :loading="cardLoading"
                                                         @click="doLogin()"
                                                         >Login</v-btn
                                                     >
@@ -100,10 +101,18 @@ export default {
             },
             alert: false,
             alertMessge: "Invalid username or password",
+            cardLoading: false,
         };
     },
+    async created() {
+        let isLogin = await this.$store.getters.isLogin;
+        if (isLogin == true) {
+            this.$router.push("/admin");
+        }
+    },
     methods: {
-        doLogin() {
+        async doLogin() {
+            this.cardLoading = true;
             if (this.username === "admin" && this.password === "dhquocte") {
                 console.log("correct");
                 this.$store.dispatch("doLogin");
@@ -112,6 +121,7 @@ export default {
                 this.inValidInput = true;
                 this.alert = true;
             }
+            this.cardLoading = false;
         },
         resetInputValidState() {
             this.inValidInput = false;
