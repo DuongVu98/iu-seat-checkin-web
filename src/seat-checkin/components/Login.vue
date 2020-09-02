@@ -80,7 +80,6 @@
             <template v-slot:action="{ attrs }">
                 <v-btn icon color="deep-orange accent-4" text v-bind="attrs" @click="alert = false">
                     <v-icon>fas fa-times-circle</v-icon>
-                    <!-- <i class="fas fa-times-circle"></i> -->
                 </v-btn>
             </template>
         </v-snackbar>
@@ -160,10 +159,10 @@ export default {
     height: 100%;
 }
 .logo-block {
-    width: 555px;
+    width: 400px;
 }
 .login-block {
-    width: 555px;
+    width: 440px;
 }
 .invalid-input-alert {
     position: absolute;
