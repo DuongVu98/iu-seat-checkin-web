@@ -117,6 +117,7 @@ export default {
         closeEditor() {
             this.codeEditor = false;
             this.fetchData();
+            this.$socket.emit("fetchApi");
         },
         doLogout() {
             this.$store.dispatch("doLogout");

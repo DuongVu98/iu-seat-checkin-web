@@ -58,6 +58,11 @@ export default {
     async created() {
         this.fetchData();
     },
+    sockets: {
+        fetchApi() {
+            this.fetchData();
+        },
+    },
     methods: {
         async fetchData() {
             this.separatedSeats.rightSeats = await [];
