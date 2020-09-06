@@ -25,34 +25,34 @@
                                                     <v-text-field
                                                         label="Username"
                                                         class="input-group--focused"
-                                                        v-model="username"
                                                         prepend-icon="mdi-account"
-                                                        :error="inValidInput"
-                                                        :rules="[rules.required]"
-                                                        @focus="resetInputValidState()"
                                                         outlined
                                                         rounded
                                                         required
+                                                        v-model="username"
+                                                        :error="inValidInput"
+                                                        :rules="[rules.required]"
+                                                        @focus="resetInputValidState()"
                                                     ></v-text-field>
                                                     <v-text-field
-                                                        :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                                        :type="hidePassword ? 'password' : 'text'"
                                                         label="Password"
                                                         class="input-group--focused"
-                                                        v-model="password"
-                                                        prepend-icon="mdi-lock"
-                                                        :error="inValidInput"
-                                                        :rules="[rules.required]"
-                                                        @focus="resetInputValidState()"
                                                         outlined
                                                         rounded
                                                         required
+                                                        prepend-icon="mdi-lock"
+                                                        v-model="password"
+                                                        :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                                        :type="hidePassword ? 'password' : 'text'"
+                                                        :error="inValidInput"
+                                                        :rules="[rules.required]"
+                                                        @focus="resetInputValidState()"
                                                         @click:append="hidePassword = !hidePassword"
                                                     ></v-text-field>
                                                     <v-btn
-                                                        :disabled="!valid"
                                                         color="success"
                                                         class="mr-4"
+                                                        :disabled="!valid"
                                                         :loading="cardLoading"
                                                         @click="doLogin()"
                                                         >Login</v-btn
@@ -69,13 +69,13 @@
             </v-card>
         </div>
         <v-snackbar
-            v-model="alert"
-            :timeout="3000"
             color="deep-orange accent-4"
             absolute
             text
             rounded="pill"
             elevation="24"
+            v-model="alert"
+            :timeout="3000"
         >
             {{ alertMessge }}
             <template v-slot:action="{ attrs }">
@@ -118,8 +118,9 @@ export default {
             await authService.authenticate(this.username, this.password).then(result => {
                 this.authentication = result.data;
             });
-            if (this.authentication == true) {
+            if (this.authentication.isValidInput == true) {
                 this.$store.dispatch("doLogin");
+                this.$store.dispatch("setUserAccount", this.authentication.account);
                 this.$router.push("/admin");
             } else {
                 this.inValidInput = true;

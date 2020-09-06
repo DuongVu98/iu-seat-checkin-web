@@ -5,6 +5,7 @@ import actions from "./actions";
 export default {
     state: {
         isLogin: false,
+        userAccount: Object,
     },
     mutations,
     actions,

@@ -5,4 +5,7 @@ export default {
     doLogout({ commit }) {
         commit("doLogout");
     },
+    setUserAccount({ commit }, userAccount) {
+        commit("setUserAccount", userAccount);
+    },
 };
