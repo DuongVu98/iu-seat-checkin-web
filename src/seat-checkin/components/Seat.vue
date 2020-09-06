@@ -94,6 +94,9 @@ export default {
     height: 50px;
     font-weight: bold;
 }
+.occupied-seat:hover {
+    background-color: #ffc88a;
+}
 .empty-seat {
     background-color: #dadada;
     color: black;
@@ -105,6 +108,9 @@ export default {
     padding: 10px;
     width: 70px;
     height: 50px;
+}
+.empty-seat:hover {
+    background-color: #ffc88a;
 }
 .inside-seat {
     text-align: center;

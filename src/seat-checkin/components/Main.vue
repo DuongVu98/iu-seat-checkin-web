@@ -6,13 +6,13 @@
                     <img src="@/assets/images/logo.png" width="150px" alt="" style="width:750px" />
                 </v-row>
             </div>
-            <div class="room-board">
+            <!-- <div class="room-board">
                 <v-row :align="alignment" :justify="justify" style="height: 150px;">
                     <v-card class="ma-3 pa-6 room-doors" outlined tile></v-card>
                     <v-card class="pa-6 room-main-board" outlined tile></v-card>
                     <v-card class="ma-3 pa-6 room-doors" outlined tile></v-card>
                 </v-row>
-            </div>
+            </div> -->
             <v-main>
                 <router-view />
             </v-main>

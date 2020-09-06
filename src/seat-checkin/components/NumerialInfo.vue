@@ -10,7 +10,9 @@
                         Số lượng có mặt: <span id="occupied-amount">{{ occupiedAmount }}</span>
                     </div>
                     <div v-if="adminPermission" class="code-editor-button">
-                        <b-button type="is-success" @click="buttonClick()" rounded>Code editor</b-button>
+                        <b-button type="is-success" @click="buttonClick()" rounded>
+                            Edit code
+                        </b-button>
                     </div>
                 </div>
             </v-card-text>

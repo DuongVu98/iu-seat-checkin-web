@@ -9,8 +9,8 @@
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                            <v-list-item-title>Menu</v-list-item-title>
-                            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+                            <v-list-item-title>Admin Direction</v-list-item-title>
+                            <!-- <v-list-item-subtitle>Subtext</v-list-item-subtitle> -->
                         </v-list-item-content>
                     </v-list-item>
 
@@ -37,8 +37,8 @@ export default {
         return {
             items: [
                 { title: "Viewer", icon: "mdi-view-dashboard", action: { path: "/viewer" } },
-                { title: "Code editor", icon: "mdi-image", action: { event: "code-editor" } },
-                { title: "Logout", icon: "mdi-help-box", action: { event: "logout" } },
+                { title: "Code editor", icon: "fas fa-pen-square", action: { event: "code-editor" } },
+                { title: "Logout", icon: "fas fa-sign-out-alt", action: { event: "logout" } },
             ],
         };
     },
