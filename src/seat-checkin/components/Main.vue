@@ -6,13 +6,18 @@
                     <img src="@/assets/images/logo.png" width="150px" alt="" style="width:750px" />
                 </v-row>
             </div>
-            <!-- <div class="room-board">
-                <v-row :align="alignment" :justify="justify" style="height: 150px;">
-                    <v-card class="ma-3 pa-6 room-doors" outlined tile></v-card>
-                    <v-card class="pa-6 room-main-board" outlined tile></v-card>
-                    <v-card class="ma-3 pa-6 room-doors" outlined tile></v-card>
+            <div class="divider">
+                <v-row :justify="justify">
+                    <v-card outlined tile style="width: 97%;"></v-card>
                 </v-row>
-            </div> -->
+            </div>
+            <div class="room-board">
+                <v-row :align="alignment" :justify="justify">
+                    <v-card class="room-doors" outlined tile></v-card>
+                    <v-card class="room-main-board" outlined tile></v-card>
+                    <v-card class="room-doors" outlined tile></v-card>
+                </v-row>
+            </div>
             <v-main>
                 <router-view />
             </v-main>
@@ -44,15 +49,16 @@ export default {
     margin-bottom: 40px;
 }
 .room-main-board {
-    height: 120px;
-    width: 300px;
-    margin-right: 30%;
-    margin-left: 30%;
+    height: 15px;
+    width: 35%;
+    margin-right: 20%;
+    margin-left: 20%;
     background-color: #dadada;
 }
 
 .room-doors {
-    height: 80px;
+    height: 15px;
+    width: 3%;
     background-color: #dadada;
 }
 </style>
