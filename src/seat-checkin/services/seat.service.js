@@ -19,7 +19,7 @@ const requestInstance = axios.create({
 
 export default {
     getAllSeat() {
-        return requestInstance.get(`${backendServer}/admin/all-seats`);
+        return requestInstance.get(`${backendServer}/viewer/all-seats`);
     },
     addOccupiedSeat(seat) {
         return requestInstance.post(`${backendServer}/admin/add-seat`, seat);

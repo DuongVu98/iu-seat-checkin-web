@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="main-display">
+        <div class="viewer-main-display">
             <div align="right">
                 <NumerialInfo :adminPermission="false" />
             </div>
-            <div class="inline-seats-block">
-                <div class="left-seat-block">
+            <div class="viewer-inline-seats-block">
+                <div class="viewer-left-seat-block">
                     <div v-for="seat in leftSeats" :key="seat.id">
                         <Seat
                             v-bind:delegateCode="seat.delegateCode"
@@ -15,7 +15,7 @@
                         />
                     </div>
                 </div>
-                <div class="right-seat-block">
+                <div class="viewer-right-seat-block">
                     <div v-for="seat in rightSeats" :key="seat.id">
                         <Seat
                             v-bind:delegateCode="seat.delegateCode"
@@ -91,20 +91,20 @@ export default {
 </script>
 
 <style>
-.main-display {
+.viewer-main-display {
     margin-left: 7%;
     margin-right: 7%;
 }
-.inline-seats-block {
+.viewer-inline-seats-block {
     display: grid;
     grid-template-columns: auto auto;
 }
-.left-seat-block {
+.viewer-left-seat-block {
     margin-right: 100px;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto;
 }
-.right-seat-block {
+.viewer-right-seat-block {
     margin-left: 100px;
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto;
