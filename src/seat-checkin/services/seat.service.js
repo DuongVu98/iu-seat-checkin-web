@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../../store/index";
 
 const backendServer = process.env.VUE_APP_SERVER;
 
@@ -6,7 +7,7 @@ const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-    user: JSON.parse(localStorage.getItem("vuex")).seatCheckinState.userAccount.id,
+    user: store.getters.userAccount.id,
 };
 
 const requestInstance = axios.create({
@@ -18,7 +19,7 @@ const requestInstance = axios.create({
 
 export default {
     getAllSeat() {
-        return requestInstance.get(`${backendServer}/viewer/all-seats`);
+        return requestInstance.get(`${backendServer}/admin/all-seats`);
     },
     addOccupiedSeat(seat) {
         return requestInstance.post(`${backendServer}/admin/add-seat`, seat);
