@@ -41,6 +41,9 @@ export default {
         toggleSeatOccupied(payload) {
             this.fetchData();
         },
+        fetchApi() {
+            this.fetchData();
+        },
     },
     methods: {
         fetchData() {

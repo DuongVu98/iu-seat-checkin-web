@@ -4,26 +4,8 @@ import Main from "../seat-checkin/components/Main.vue";
 import Viewer from "../seat-checkin/components/Viewer.vue";
 import Admin from "../seat-checkin/components/Admin.vue";
 import Login from "../seat-checkin/components/Login.vue";
-
+import NotFound from "../seat-checkin/components/NotFound.vue";
 Vue.use(VueRouter);
-
-// const routes = [
-//     {
-//         path: "/admin",
-//         name: "Admin",
-//         component: Admin,
-//     },
-//     {
-//         path: "/login",
-//         name: "Login",
-//         component: Login,
-//     },
-//     {
-//         path: "/**",
-//         name: "Viewer",
-//         component: Viewer,
-//     },
-// ];
 
 const routes = [
     {
@@ -46,7 +28,7 @@ const routes = [
                 component: Login,
             },
             {
-                path: "/**",
+                path: "/",
                 name: "Viewer",
                 component: Viewer,
             },
@@ -56,6 +38,11 @@ const routes = [
         path: "/viewer",
         name: "Viewer",
         component: Viewer,
+    },
+    {
+        path: "/**",
+        name: "NotFound",
+        component: NotFound,
     },
 ];
 

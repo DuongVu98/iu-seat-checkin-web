@@ -16,7 +16,7 @@
 
                     <v-divider></v-divider>
 
-                    <v-list-item v-for="item in items" :key="item.title" link @click="test(item.action)">
+                    <v-list-item v-for="item in items" :key="item.title" link @click="action(item.action)">
                         <v-list-item-icon>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-item-icon>
@@ -48,7 +48,7 @@ export default {
         },
     },
     methods: {
-        test(action) {
+        action(action) {
             if (action.path) {
                 this.$router.push(action.path);
             } else if (action.event) {
