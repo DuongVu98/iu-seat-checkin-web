@@ -66,15 +66,17 @@ export default {
         async setOccupied() {
             if (this.delegateCode != "" && this.adminPermission) {
                 this.seatOccupied = await !this.seatOccupied;
-                seatApiService.updateSeatOccupied({
-                    id: this.seatId,
-                    occupied: this.seatOccupied,
-                });
-
-                this.$socket.emit("toggleSeatOccupied", {
-                    id: this.seatId,
-                    occupied: this.seatOccupied,
-                });
+                seatApiService
+                    .updateSeatOccupied({
+                        id: this.seatId,
+                        occupied: this.seatOccupied,
+                    })
+                    .then(() => {
+                        this.$socket.emit("toggleSeatOccupied", {
+                            id: this.seatId,
+                            occupied: this.seatOccupied,
+                        });
+                    });
             }
         },
     },
