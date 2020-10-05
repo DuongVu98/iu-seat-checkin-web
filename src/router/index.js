@@ -28,16 +28,16 @@ const routes = [
                 component: Login,
             },
             {
+                path: "/viewer",
+                name: "Viewer",
+                component: Viewer,
+            },
+            {
                 path: "/",
                 name: "Viewer",
                 component: Viewer,
             },
         ],
-    },
-    {
-        path: "/viewer",
-        name: "Viewer",
-        component: Viewer,
     },
     {
         path: "/**",
